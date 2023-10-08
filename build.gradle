@@ -1,0 +1,73 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'org.javamodularity.moduleplugin' version '1.8.12'
+    id 'org.openjfx.javafxplugin' version '0.0.13'
+    id 'org.beryx.jlink' version '2.25.0'
+}
+
+group 'io.github.uniclog'
+version '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    junitVersion = '5.9.2'
+}
+
+sourceCompatibility = '19'
+targetCompatibility = '19'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+application {
+    mainModule = 'io.github.uniclog.jsticky'
+    mainClass = 'io.github.uniclog.jsticky.MainApp'
+}
+
+javafx {
+    version = '19.0.2'
+    modules = ['javafx.controls', 'javafx.fxml']
+}
+
+dependencies {
+    implementation('com.dlsc.formsfx:formsfx-core:11.6.0') {
+        exclude(group: 'org.openjfx')
+    }
+
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jlink {
+    imageZip = project.file("${buildDir}/distributions/app-${javafx.platform.classifier}.zip") as RegularFile
+    options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
+    launcher {
+        name = 'app'
+    }
+    forceMerge 'kotlin'
+    jpackage {
+        appVersion = '1.0'
+        icon = "src/main/resources/io/github/uniclog/jsticky/img/icon.ico"
+        imageOptions = [
+                "--vendor", "Uniclog Software",
+                '--app-version', version
+        ] as List<String>
+        installerType = 'exe'
+        installerOptions = [
+                '--win-dir-chooser', '--win-shortcut'
+        ]
+    }
+}
+
+jlinkZip {
+    group = 'distribution'
+}
