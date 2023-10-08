@@ -12,23 +12,12 @@ public class AppController {
     public ToggleButton exit;
     public ToggleButton fix;
 
-    private final Text holder = new Text();
-    private double oldHeight = 0;
     private static boolean alwaysOnTop = false;
 
     /**
      * Controller post construct
      */
     public void initialize() {
-        /*holder.textProperty().bind(mainTextArea.textProperty());
-        holder.layoutBoundsProperty().addListener((observable, oldValue, newValue) -> {
-            if (oldHeight != newValue.getHeight()) {
-                oldHeight = newValue.getHeight();
-                var newHeight = holder.getLayoutBounds().getHeight() + 20;
-                mainTextArea.setPrefHeight(newHeight);
-            }
-        });*/
-
         exit.setOnMouseMoved(mouseEvent -> controlService.setOnMouseMoved(mouseEvent, exit.getScene()));
         mainTextArea.setOnMouseMoved(mouseEvent -> controlService.setOnMouseMoved(mouseEvent, exit.getScene()));
     }
@@ -48,6 +37,9 @@ public class AppController {
         SceneControlService.onMin((Stage) exit.getScene().getWindow());
     }
 
+    /**
+     * Button: Window pin
+     */
     public void onFix() {
         var stage = (Stage) exit.getScene().getWindow();
         if (alwaysOnTop) {
