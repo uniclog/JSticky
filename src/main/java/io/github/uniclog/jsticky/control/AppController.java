@@ -15,12 +15,10 @@ import static java.util.Objects.nonNull;
 
 public class AppController {
     private static final String JSTICKY_DATA_PATH = "jsticky.ini";
-
+    private static final JStickyData jStickyData = new JStickyData();
+    private static final Timer dataSaveTimer = new Timer();
     private static boolean alwaysOnTop = false;
     private static boolean onWrap = false;
-    private static final JStickyData J_STICKY_DATA = new JStickyData();
-    private static final Timer dataSaveTimer = new Timer();
-
     public TextArea mainTextArea;
     public ToggleButton exit;
     public ToggleButton fix;
@@ -31,16 +29,16 @@ public class AppController {
      */
     public void initialize() {
         JStickyData actual = FileServiceWrapper.loadObjectFromJson(JSTICKY_DATA_PATH, JStickyData.class);
-        if(nonNull(actual)) {
+        if (nonNull(actual)) {
             mainTextArea.setText(actual.getContent());
         }
         TimerTask dataSaveTimerTask = new TimerTask() {
             @Override
             public void run() {
                 var actual = mainTextArea.getText();
-                if(!actual.equals(J_STICKY_DATA.getContent())) {
-                    J_STICKY_DATA.setContent(actual);
-                    saveObjectAsJson(JSTICKY_DATA_PATH, J_STICKY_DATA);
+                if (!actual.equals(jStickyData.getContent())) {
+                    jStickyData.setContent(actual);
+                    saveObjectAsJson(JSTICKY_DATA_PATH, jStickyData);
                 }
             }
         };
@@ -55,6 +53,12 @@ public class AppController {
      * Button: Exit
      */
     public void onExit() {
+        var actual = mainTextArea.getText();
+        if (!actual.equals(jStickyData.getContent())) {
+            jStickyData.setContent(actual);
+            saveObjectAsJson(JSTICKY_DATA_PATH, jStickyData);
+        }
+
         SceneControlService.onExit();
     }
 
@@ -62,7 +66,6 @@ public class AppController {
      * Button: Minimize window
      */
     public void onMin() {
-
         SceneControlService.onMin((Stage) exit.getScene().getWindow());
     }
 
