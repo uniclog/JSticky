@@ -1,25 +1,51 @@
 package io.github.uniclog.jsticky.control;
 
+import io.github.uniclog.jsticky.model.JStickyData;
+import io.github.uniclog.jsticky.utils.FileServiceWrapper;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.ToggleButton;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import static io.github.uniclog.jsticky.MainApp.controlService;
+import static io.github.uniclog.jsticky.utils.FileServiceWrapper.saveObjectAsJson;
+import static java.util.Objects.nonNull;
 
 public class AppController {
+    private static final String JSTICKY_DATA_PATH = "jsticky.ini";
+
+    private static boolean alwaysOnTop = false;
+    private static boolean onWrap = false;
+    private static final JStickyData J_STICKY_DATA = new JStickyData();
+    private static final Timer dataSaveTimer = new Timer();
+
     public TextArea mainTextArea;
     public ToggleButton exit;
     public ToggleButton fix;
     public ToggleButton wrap;
 
-    private static boolean alwaysOnTop = false;
-    private static boolean onWrap = false;
-
     /**
      * Controller post construct
      */
     public void initialize() {
+        JStickyData actual = FileServiceWrapper.loadObjectFromJson(JSTICKY_DATA_PATH, JStickyData.class);
+        if(nonNull(actual)) {
+            mainTextArea.setText(actual.getContent());
+        }
+        TimerTask dataSaveTimerTask = new TimerTask() {
+            @Override
+            public void run() {
+                var actual = mainTextArea.getText();
+                if(!actual.equals(J_STICKY_DATA.getContent())) {
+                    J_STICKY_DATA.setContent(actual);
+                    saveObjectAsJson(JSTICKY_DATA_PATH, J_STICKY_DATA);
+                }
+            }
+        };
+        dataSaveTimer.scheduleAtFixedRate(dataSaveTimerTask, 1000, 8000);
+
         exit.setOnMouseMoved(mouseEvent -> controlService.setOnMouseMoved(mouseEvent, exit.getScene()));
         mainTextArea.setOnMouseMoved(mouseEvent -> controlService.setOnMouseMoved(mouseEvent, exit.getScene()));
         fix.setOnMouseMoved(mouseEvent -> controlService.setOnMouseMoved(mouseEvent, exit.getScene()));

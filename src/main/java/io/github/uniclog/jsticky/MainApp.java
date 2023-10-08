@@ -14,7 +14,6 @@ import static javafx.stage.StageStyle.UNDECORATED;
 public class MainApp extends Application {
 
     static public final SceneControlService controlService = new SceneControlService();
-
     public static void main(String[] args) {
         launch();
     }
