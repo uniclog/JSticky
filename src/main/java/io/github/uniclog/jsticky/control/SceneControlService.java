@@ -20,7 +20,7 @@ public class SceneControlService {
 
     private final Point deltaMove = new Point(0, 0);
     private final Point deltaResize = new Point(0, 0);
-    private final int borderSizePixel = 4;
+    private final int borderSizePixel = 10;
 
     //region control button
 

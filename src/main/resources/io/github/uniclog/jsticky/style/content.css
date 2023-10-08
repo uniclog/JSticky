@@ -16,7 +16,7 @@
 
     /*-fx-font-weight: bold;*/
     -fx-font-size: 14px;
-    -fx-font-family: "System Bold";
+    /*-fx-font-family: "System Bold";*/
     -fx-text-fill: #000000;
 }
 

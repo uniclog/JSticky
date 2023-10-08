@@ -20,17 +20,17 @@ public class AppController {
      * Controller post construct
      */
     public void initialize() {
-        holder.textProperty().bind(mainTextArea.textProperty());
+        /*holder.textProperty().bind(mainTextArea.textProperty());
         holder.layoutBoundsProperty().addListener((observable, oldValue, newValue) -> {
             if (oldHeight != newValue.getHeight()) {
                 oldHeight = newValue.getHeight();
                 var newHeight = holder.getLayoutBounds().getHeight() + 20;
                 mainTextArea.setPrefHeight(newHeight);
-                Stage stage = (Stage) mainTextArea.getScene().getWindow();
             }
-        });
+        });*/
 
         exit.setOnMouseMoved(mouseEvent -> controlService.setOnMouseMoved(mouseEvent, exit.getScene()));
+        mainTextArea.setOnMouseMoved(mouseEvent -> controlService.setOnMouseMoved(mouseEvent, exit.getScene()));
     }
 
     /**
