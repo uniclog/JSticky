@@ -50,7 +50,7 @@
 .gui-wrap-button {
     /*-fx-graphic: url("window_fix_icon.png");*/
     -fx-background-image: url("../img/window_wrap_icon.png");
-    -fx-background-size: 16px 16px;
+    -fx-background-size: 20px 20px;
     -fx-background-position: center;
     -fx-background-repeat: no-repeat;
     -fx-background-color: rgba(0, 0, 0, 0);
@@ -62,7 +62,7 @@
 
 .gui-wrap-button-on {
     -fx-background-image: url("../img/window_wrap_icon.png");
-    -fx-background-size: 16px 16px;
+    -fx-background-size: 20px 20px;
     -fx-background-position: center;
     -fx-background-repeat: no-repeat;
     -fx-background-color: rgba(0, 0, 0, 0.1);
