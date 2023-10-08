@@ -11,8 +11,10 @@ public class AppController {
     public TextArea mainTextArea;
     public ToggleButton exit;
     public ToggleButton fix;
+    public ToggleButton wrap;
 
     private static boolean alwaysOnTop = false;
+    private static boolean onWrap = false;
 
     /**
      * Controller post construct
@@ -20,6 +22,7 @@ public class AppController {
     public void initialize() {
         exit.setOnMouseMoved(mouseEvent -> controlService.setOnMouseMoved(mouseEvent, exit.getScene()));
         mainTextArea.setOnMouseMoved(mouseEvent -> controlService.setOnMouseMoved(mouseEvent, exit.getScene()));
+        fix.setOnMouseMoved(mouseEvent -> controlService.setOnMouseMoved(mouseEvent, exit.getScene()));
     }
 
     /**
@@ -52,5 +55,20 @@ public class AppController {
             fix.getStyleClass().add("gui-fix-button-on");
         }
         alwaysOnTop = !alwaysOnTop;
+    }
+
+    /**
+     * Button: Window pin
+     */
+    public void onWrap() {
+        if (onWrap) {
+            wrap.getStyleClass().removeAll("gui-wrap-button-on");
+            wrap.getStyleClass().add("gui-wrap-button");
+        } else {
+            wrap.getStyleClass().removeAll("gui-wrap-button");
+            wrap.getStyleClass().add("gui-wrap-button-on");
+        }
+        onWrap = !onWrap;
+        mainTextArea.setWrapText(onWrap);
     }
 }
