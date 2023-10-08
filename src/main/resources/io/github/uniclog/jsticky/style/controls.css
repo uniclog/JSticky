@@ -1,0 +1,47 @@
+.gui-exit-button {
+    -fx-opacity: 150%;
+    /*-fx-graphic: url("window_close_icon.png");*/
+    -fx-background-image: url("../img/window_close_icon.png");
+    -fx-background-size: 16px 16px;
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-color: rgba(0, 0, 0, 0);
+}
+
+.gui-exit-button:hover {
+    -fx-background-color: rgba(0, 0, 0, 0.1);
+}
+
+.gui-min-button {
+    /*-fx-graphic: url("window_min_icon.png");*/
+    -fx-background-image: url("../img/window_min_icon.png");
+    -fx-background-size: 16px 16px;
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-color: rgba(0, 0, 0, 0);
+}
+
+.gui-min-button:hover {
+    -fx-background-color: rgba(0, 0, 0, 0.1);
+}
+
+.gui-fix-button {
+    /*-fx-graphic: url("window_fix_icon.png");*/
+    -fx-background-image: url("../img/window_fix_icon_ex.png");
+    -fx-background-size: 16px 16px;
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-color: rgba(0, 0, 0, 0);
+}
+
+.gui-fix-button:hover {
+    -fx-background-color: rgba(0, 0, 0, 0.1);
+}
+
+.gui-fix-button-on {
+    -fx-background-image: url("../img/window_fix_icon_ex.png");
+    -fx-background-size: 16px 16px;
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-color: rgba(0, 0, 0, 0.1);
+}
