@@ -4,6 +4,7 @@ module io.github.uniclog.jsticky {
 
     //requires com.dlsc.formsfx;
     requires java.desktop;
+    requires com.google.gson;
 
     opens io.github.uniclog.jsticky to javafx.fxml;
     exports io.github.uniclog.jsticky;
