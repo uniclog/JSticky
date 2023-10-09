@@ -1,4 +1,4 @@
-package io.github.uniclog.jsticky.control;
+package io.github.uniclog.jsticky.control.services;
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;

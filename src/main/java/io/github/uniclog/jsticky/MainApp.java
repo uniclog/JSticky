@@ -1,6 +1,6 @@
 package io.github.uniclog.jsticky;
 
-import io.github.uniclog.jsticky.control.SceneControlService;
+import io.github.uniclog.jsticky.control.services.SceneControlService;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -28,7 +28,7 @@ public class MainApp extends Application {
         root.setOnMousePressed(mouseEvent -> controlService.setOnMousePressed(mouseEvent, root, stage));
         root.setOnMouseDragged(mouseEvent -> controlService.setOnMouseDragged(mouseEvent, scene, stage));
 
-        //stage.setOpacity(0.90);
+        // stage.setOpacity(0.90);
         stage.initStyle(UNDECORATED);
         stage.setTitle("jSticky");
         // stage.setAlwaysOnTop(true)
