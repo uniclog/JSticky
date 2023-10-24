@@ -2,6 +2,7 @@ package io.github.uniclog.jsticky;
 
 import io.github.uniclog.jsticky.controllers.AppController;
 import io.github.uniclog.jsticky.controllers.ListController;
+import io.github.uniclog.jsticky.controllers.ScreenCapController;
 import io.github.uniclog.jsticky.controllers.SettingsController;
 import io.github.uniclog.jsticky.controllers.services.SceneControlService;
 import io.github.uniclog.jsticky.model.JStickyData;
@@ -34,7 +35,7 @@ public class App extends Application {
     private static Stage settingsStage;
     private static SettingsController settingsController;
     private static Stage screenCapStage;
-    //private static ScreenCapController screenCapController;
+    private static ScreenCapController screenCapController;
 
     public static void main(String[] args) {
         launch();
@@ -64,7 +65,7 @@ public class App extends Application {
         }
     }
 
-    /*public static void loadScreenCapScene() throws IOException {
+    public static void loadScreenCapScene() throws IOException {
         if (isNull(screenCapStage)) {
             var loader = new FXMLLoader(App.class.getResource("screenCap.fxml"));
             var root = (Parent) loader.load();
@@ -84,7 +85,7 @@ public class App extends Application {
                 screenCapController.show();
             }
         }
-    }*/
+    }
 
     public static void loadListScene() throws IOException {
         if (isNull(listStage)) {
