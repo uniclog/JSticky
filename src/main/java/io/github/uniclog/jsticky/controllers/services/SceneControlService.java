@@ -1,5 +1,6 @@
-package io.github.uniclog.jsticky.control;
+package io.github.uniclog.jsticky.controllers.services;
 
+import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
@@ -28,6 +29,7 @@ public class SceneControlService {
      * Exit button, close app
      */
     public static void onExit() {
+        Platform.exit();
         System.exit(0);
     }
 
