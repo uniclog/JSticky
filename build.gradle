@@ -7,7 +7,7 @@ plugins {
 }
 
 group 'io.github.uniclog'
-version '1.0'
+version '1.1'
 
 repositories {
     mavenCentral()
@@ -23,11 +23,11 @@ tasks.withType(JavaCompile).configureEach {
 
 application {
     mainModule = 'io.github.uniclog.jsticky'
-    mainClass = 'io.github.uniclog.jsticky.MainApp'
+    mainClass = 'io.github.uniclog.jsticky.App'
 }
 
 javafx {
-    version = '19.0.2'
+    version = '21'
     modules = ['javafx.controls', 'javafx.fxml']
 }
 
@@ -36,6 +36,8 @@ dependencies {
         exclude(group: 'org.openjfx')
     }
     implementation 'com.google.code.gson:gson:2.10.1'
+    annotationProcessor 'org.projectlombok:lombok:1.18.26'
+    implementation 'org.projectlombok:lombok:1.18.26'
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
@@ -53,7 +55,7 @@ jlink {
     }
     forceMerge 'kotlin'
     jpackage {
-        appVersion = '1.0'
+        appVersion = '1.1'
         vendor = 'io.github.uniclog'
         icon = "src/main/resources/io/github/uniclog/jsticky/img/icon.ico"
         imageOptions = [
