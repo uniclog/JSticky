@@ -117,8 +117,12 @@ public class App extends Application {
     }
 
     public static void settingsReload() {
-        appController.settingsReload();
-        settingsController.settingsReload();
+        if (nonNull(appController))
+            appController.settingsReload();
+        if (nonNull(settingsController))
+            settingsController.settingsReload();
+        if (nonNull(screenCapController))
+            screenCapController.settingsReload();
     }
 
     @Override
