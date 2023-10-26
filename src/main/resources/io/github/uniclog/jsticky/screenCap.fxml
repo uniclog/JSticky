@@ -3,7 +3,8 @@
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
-<AnchorPane prefHeight="290.0" prefWidth="556.0" styleClass="root-class" xmlns="http://javafx.com/javafx/17.0.2-ea"
+<AnchorPane fx:id="mainPane" prefHeight="290.0" prefWidth="556.0" styleClass="root-class"
+            xmlns="http://javafx.com/javafx/17.0.2-ea"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="io.github.uniclog.jsticky.controllers.ScreenCapController">
 
