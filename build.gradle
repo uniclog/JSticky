@@ -7,7 +7,7 @@ plugins {
 }
 
 group 'io.github.uniclog'
-version '1.2'
+version '1.2.1'
 
 repositories {
     mavenCentral()
@@ -55,7 +55,7 @@ jlink {
     }
     forceMerge 'kotlin'
     jpackage {
-        appVersion = '1.2'
+        appVersion = '1.2.1'
         vendor = 'io.github.uniclog'
         icon = "src/main/resources/io/github/uniclog/jsticky/img/icon.ico"
         imageOptions = [
