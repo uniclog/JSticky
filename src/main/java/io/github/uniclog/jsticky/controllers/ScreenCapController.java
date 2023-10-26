@@ -14,6 +14,8 @@ import javafx.stage.Stage;
 import java.awt.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import static io.github.uniclog.jsticky.App.jStickyData;
+
 public class ScreenCapController implements ControllersInterface {
     private static boolean alwaysOnTop = false;
     private final Robot robot;
@@ -21,18 +23,25 @@ public class ScreenCapController implements ControllersInterface {
     public ToggleButton fix;
     public AnchorPane capturePane;
     public ToggleButton screenLock;
+    public AnchorPane mainPane;
     private Stage stage;
     private ImageView view;
     private AnimationTimer timer;
 
-    private AtomicBoolean screenLockFlag = new AtomicBoolean(false);
+    private final AtomicBoolean screenLockFlag = new AtomicBoolean(false);
 
     public ScreenCapController() {
         robot = new Robot();
     }
 
     public void initialize() {
+        settingsReload();
+    }
 
+    public void settingsReload() {
+        var settings = jStickyData.getSettings();
+
+        mainPane.setStyle(String.format("-fx-background-color: %s ;", settings.getAppThemeColorText()));
     }
 
     @Override
