@@ -55,7 +55,7 @@ jlink {
     }
     forceMerge 'kotlin'
     jpackage {
-        appVersion = '1.1'
+        appVersion = '1.2'
         vendor = 'io.github.uniclog'
         icon = "src/main/resources/io/github/uniclog/jsticky/img/icon.ico"
         imageOptions = [
