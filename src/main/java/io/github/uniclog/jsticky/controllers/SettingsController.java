@@ -20,6 +20,10 @@ public class SettingsController implements ControllersInterface {
     public ColorPicker textFontColor;
     public AnchorPane mainPane;
     public AnchorPane mainPane2;
+    public Label labelFont;
+    public Label labelFontSize;
+    public Label labelThemeStyle;
+    public Label labelFontStyle;
     private Stage stage;
 
     public void initialize() {
@@ -75,6 +79,11 @@ public class SettingsController implements ControllersInterface {
         mainPane.setStyle(String.format("-fx-background-color: %s ;", settings.getAppThemeColorText()));
         mainPane2.setStyle(String.format("-fx-background-color: %s ;", settings.getAppThemeColorText()));
 
+        checkWrap.setStyle(String.format("-fx-text-fill: %s ; ", settings.getTextFontColorText()));
+        labelFont.setStyle(String.format("-fx-text-fill: %s ; ", settings.getTextFontColorText()));
+        labelFontSize.setStyle(String.format("-fx-text-fill: %s ; ", settings.getTextFontColorText()));
+        labelThemeStyle.setStyle(String.format("-fx-text-fill: %s ; ", settings.getTextFontColorText()));
+        labelFontStyle.setStyle(String.format("-fx-text-fill: %s ; ", settings.getTextFontColorText()));
     }
 
     @Override
