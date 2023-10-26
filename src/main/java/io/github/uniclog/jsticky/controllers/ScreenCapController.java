@@ -1,5 +1,6 @@
 package io.github.uniclog.jsticky.controllers;
 
+import io.github.uniclog.jsticky.App;
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
@@ -25,7 +26,7 @@ public class ScreenCapController implements ControllersInterface {
     private ImageView view;
     private AnimationTimer timer;
 
-    private AtomicBoolean screenLockFlag = new AtomicBoolean(false);
+    private final AtomicBoolean screenLockFlag = new AtomicBoolean(false);
 
     public ScreenCapController() {
         robot = new Robot();
@@ -57,12 +58,15 @@ public class ScreenCapController implements ControllersInterface {
             }
         };
         show();
-
     }
 
     public void onExit() {
         timer.stop();
+        view.setImage(null);
         stage.close();
+        stage = null;
+        App.closeScreenCapStage();
+        System.gc();
     }
 
     public void show() {
