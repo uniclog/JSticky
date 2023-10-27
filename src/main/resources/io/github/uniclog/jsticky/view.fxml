@@ -20,14 +20,13 @@
     <ToggleButton fx:id="settings" layoutX="33.0" layoutY="2.0" mnemonicParsing="false" onAction="#onSettings"
                   prefHeight="24.0" prefWidth="32.0" styleClass="gui-settings-button" AnchorPane.leftAnchor="1.0"
                   AnchorPane.topAnchor="1.0"/>
-    <ToggleButton fx:id="list" layoutX="65.0" layoutY="2.0" mnemonicParsing="false" onAction="#openList"
+    <ToggleButton layoutX="65.0" layoutY="2.0" mnemonicParsing="false" onAction="#openList"
                   prefHeight="24.0" prefWidth="32.0" styleClass="gui-plus-button" visible="false"
                   AnchorPane.leftAnchor="65.0" AnchorPane.topAnchor="2.0"/>
-
     <ToggleButton layoutX="14.0" layoutY="2.0" mnemonicParsing="false" onAction="#onScreenCapture" prefHeight="24.0"
                   prefWidth="32.0" styleClass="gui-screen-cap-button" AnchorPane.leftAnchor="34.0"
                   AnchorPane.topAnchor="1.0"/>
-    <AnchorPane style="-fx-background-color: white ; -fx-background-radius: 0.4em;" prefHeight="200.0" prefWidth="200.0"
+    <AnchorPane styleClass="white-anchor-pane" prefHeight="200.0" prefWidth="200.0"
                 AnchorPane.bottomAnchor="5.0"
                 AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="27.0">
         <TextArea fx:id="mainTextArea" prefHeight="236.0" prefWidth="299.0" styleClass="text-area-style"

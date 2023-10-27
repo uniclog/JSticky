@@ -36,7 +36,7 @@
                AnchorPane.topAnchor="14.0"/>
         <Label fx:id="labelFontSize" layoutX="18.0" layoutY="63.0" text="Размер шрифта" AnchorPane.leftAnchor="18.0"
                AnchorPane.topAnchor="63.0"/>
-        <AnchorPane style="-fx-background-color: white ; -fx-background-radius: 0.4em;" prefHeight="112.0"
+        <AnchorPane styleClass="white-anchor-pane" prefHeight="112.0"
                     prefWidth="234.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="250.0">
             <TextArea fx:id="samples" prefHeight="110.0" prefWidth="234.0" text="Пример текста"
                       AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"

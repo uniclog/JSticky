@@ -65,3 +65,9 @@
     -fx-background-radius: 2em;
 
 }
+
+
+.white-anchor-pane {
+    -fx-background-color: white;
+    -fx-background-radius: 0.4em;
+}
