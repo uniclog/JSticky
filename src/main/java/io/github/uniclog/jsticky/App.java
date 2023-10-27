@@ -57,9 +57,7 @@ public class App extends Application {
             settingsStage.setTitle("jSticky Settings");
             settingsStage.show();
         } else {
-            if (settingsStage.isShowing()) {
-                settingsStage.close();
-            } else {
+            if (!settingsStage.isShowing()) {
                 settingsStage.show();
             }
         }
@@ -79,9 +77,7 @@ public class App extends Application {
             screenCapController = loader.getController();
             screenCapController.setStageAndSetupListeners(root, scene, screenCapStage);
         } else {
-            if (screenCapStage.isShowing()) {
-                screenCapStage.close();
-            } else {
+            if (!screenCapStage.isShowing()) {
                 screenCapController.show();
             }
         }
@@ -103,9 +99,7 @@ public class App extends Application {
             listStage.setTitle("jSticky sticky list");
             listStage.show();
         } else {
-            if (listStage.isShowing())
-                listStage.close();
-            else
+            if (!listStage.isShowing())
                 listStage.show();
         }
     }
@@ -113,7 +107,13 @@ public class App extends Application {
     public static void close() {
         // stages check
         saveObjectAsJson(J_STICKY_DATA_PATH, jStickyData);
+
         SceneControlService.onExit();
+    }
+
+    public static void closeScreenCapStage() {
+        screenCapStage = null;
+        screenCapController = null;
     }
 
     public static void settingsReload() {

@@ -53,11 +53,16 @@ public class ScreenCapController implements ControllersInterface {
         view = new ImageView();
         capturePane.getChildren().add(view);
         show();
+
     }
 
     public void onExit() {
         timerEx.cancel();
+        view.setImage(null);
         stage.close();
+        stage = null;
+        App.closeScreenCapStage();
+        System.gc();
     }
 
     public void show() {
