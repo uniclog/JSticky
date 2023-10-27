@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
 <AnchorPane fx:id="mainPane" prefHeight="290.0" prefWidth="556.0" styleClass="root-class"
@@ -17,12 +17,8 @@
                   AnchorPane.topAnchor="1.0"/>
 
 
-    <ToggleButton fx:id="copy" layoutX="48.0" layoutY="2.0" mnemonicParsing="false" onAction="#onScreenLock"
-                  prefHeight="24.0" prefWidth="32.0" styleClass="gui-copy-button" AnchorPane.leftAnchor="34.0"
-                  AnchorPane.topAnchor="1.0"/>
-
-    <ToggleButton fx:id="save" layoutX="14.0" layoutY="2.0" mnemonicParsing="false" onAction="#onScreenLock"
-                  prefHeight="24.0" prefWidth="32.0" styleClass="gui-download-button" AnchorPane.leftAnchor="1.0"
+    <ToggleButton layoutX="48.0" layoutY="2.0" mnemonicParsing="false" onAction="#onActionCopy"
+                  prefHeight="24.0" prefWidth="32.0" styleClass="gui-copy-button" AnchorPane.leftAnchor="1.0"
                   AnchorPane.topAnchor="1.0"/>
 
     <AnchorPane fx:id="capturePane" layoutX="84.0" layoutY="104.0" prefHeight="200.0" prefWidth="200.0"
