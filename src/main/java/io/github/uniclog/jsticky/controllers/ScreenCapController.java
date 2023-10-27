@@ -1,6 +1,7 @@
 package io.github.uniclog.jsticky.controllers;
 
 import io.github.uniclog.jsticky.App;
+import io.github.uniclog.jsticky.utils.ClipboardUtils;
 import javafx.application.Platform;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
@@ -83,7 +84,8 @@ public class ScreenCapController implements ControllersInterface {
                         if (!screenLockFlag.get() && nonNull(stage)) {
                             Platform.runLater(() -> {
                                 try {
-                                    view.setViewport(new Rectangle2D(stage.getX(), stage.getY(), capturePane.getWidth(), capturePane.getHeight()));
+                                    var r2d = new Rectangle2D(stage.getX(), stage.getY(), capturePane.getWidth(), capturePane.getHeight());
+                                    view.setViewport(r2d);
                                     view.setFitWidth(capturePane.getWidth());
                                     view.setFitHeight(capturePane.getHeight());
                                 } catch (NullPointerException ignored) {
@@ -122,4 +124,11 @@ public class ScreenCapController implements ControllersInterface {
         }
         alwaysOnTop = !alwaysOnTop;
     }
+
+    public void onActionCopy() {
+        WritableImage viewportImage = new WritableImage((int) capturePane.getWidth(), (int) capturePane.getHeight());
+        view.snapshot(null, viewportImage);
+        ClipboardUtils.copyToClipboard(viewportImage);
+    }
+
 }
