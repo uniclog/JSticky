@@ -1,5 +1,6 @@
 package io.github.uniclog.jsticky.controllers;
 
+import io.github.uniclog.jsticky.App;
 import javafx.application.Platform;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
@@ -17,6 +18,7 @@ import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import static io.github.uniclog.jsticky.App.jStickyData;
+import static java.util.Objects.nonNull;
 
 public class ScreenCapController implements ControllersInterface {
     private static boolean alwaysOnTop = false;
@@ -78,11 +80,14 @@ public class ScreenCapController implements ControllersInterface {
                 new TimerTask() {
                     @Override
                     public void run() {
-                        if (!screenLockFlag.get()) {
+                        if (!screenLockFlag.get() && nonNull(stage)) {
                             Platform.runLater(() -> {
-                                view.setViewport(new Rectangle2D(stage.getX(), stage.getY(), capturePane.getWidth(), capturePane.getHeight()));
-                                view.setFitWidth(capturePane.getWidth());
-                                view.setFitHeight(capturePane.getHeight());
+                                try {
+                                    view.setViewport(new Rectangle2D(stage.getX(), stage.getY(), capturePane.getWidth(), capturePane.getHeight()));
+                                    view.setFitWidth(capturePane.getWidth());
+                                    view.setFitHeight(capturePane.getHeight());
+                                } catch (NullPointerException ignored) {
+                                }
                             });
                         }
                     }
