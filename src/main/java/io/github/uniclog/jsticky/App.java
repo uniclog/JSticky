@@ -1,7 +1,6 @@
 package io.github.uniclog.jsticky;
 
 import io.github.uniclog.jsticky.controllers.AppController;
-import io.github.uniclog.jsticky.controllers.ListController;
 import io.github.uniclog.jsticky.controllers.ScreenCapController;
 import io.github.uniclog.jsticky.controllers.SettingsController;
 import io.github.uniclog.jsticky.controllers.services.SceneControlService;
@@ -83,7 +82,7 @@ public class App extends Application {
         }
     }
 
-    public static void loadListScene() throws IOException {
+    /*public static void loadListScene() throws IOException {
         if (isNull(listStage)) {
             var loader = new FXMLLoader(App.class.getResource("list.fxml"));
             var root = (Parent) loader.load();
@@ -102,7 +101,7 @@ public class App extends Application {
             if (!listStage.isShowing())
                 listStage.show();
         }
-    }
+    }*/
 
     public static void close() {
         // stages check

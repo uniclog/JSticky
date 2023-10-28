@@ -126,13 +126,13 @@ public class AppController implements ControllersInterface {
     }
 
     public void openList() {
-        Platform.runLater(() -> {
+        /*Platform.runLater(() -> {
             try {
                 loadListScene();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-        });
+        });*/
     }
 
     public void onScreenCapture() {
