@@ -11,7 +11,7 @@
     <AnchorPane fx:id="mainPane2" layoutX="12.0" layoutY="26.0" prefHeight="344.0" prefWidth="246.0"
                 styleClass="settings-root-class" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0"
                 AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="27.0">
-        <CheckBox fx:id="checkWrap" layoutX="18.0" layoutY="116.0" mnemonicParsing="false" text="Авто-перенос текста"
+        <CheckBox fx:id="checkWrap" layoutX="18.0" layoutY="116.0" mnemonicParsing="false" text="Text wrap"
                   AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="116.0"/>
         <Spinner fx:id="textSize" editable="true" layoutX="18.0" layoutY="31.0" prefHeight="25.0" prefWidth="234.0"
                  AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="31.0">
@@ -32,21 +32,22 @@
                 </FXCollections>
             </items>
         </ChoiceBox>
-        <Label fx:id="labelFont" layoutX="18.0" layoutY="14.0" text="Шрифт" AnchorPane.leftAnchor="18.0"
+        <Label fx:id="labelFont" layoutX="18.0" layoutY="14.0" text="Font size" AnchorPane.leftAnchor="18.0"
                AnchorPane.topAnchor="14.0"/>
-        <Label fx:id="labelFontSize" layoutX="18.0" layoutY="63.0" text="Размер шрифта" AnchorPane.leftAnchor="18.0"
+        <Label fx:id="labelFontSize" layoutX="18.0" layoutY="63.0" text="Font family" AnchorPane.leftAnchor="18.0"
                AnchorPane.topAnchor="63.0"/>
         <AnchorPane styleClass="white-anchor-pane" prefHeight="112.0"
                     prefWidth="234.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="250.0">
-            <TextArea fx:id="samples" prefHeight="110.0" prefWidth="234.0" text="Пример текста"
+            <TextArea fx:id="samples" prefHeight="110.0" prefWidth="234.0" text="Hello world..."
                       AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                       AnchorPane.topAnchor="0.0"/>
         </AnchorPane>
-        <Label fx:id="labelThemeStyle" layoutX="18.0" layoutY="143.0" text="Стиль фона" AnchorPane.leftAnchor="18.0"
+        <Label fx:id="labelThemeStyle" layoutX="18.0" layoutY="143.0" text="Main theme color"
+               AnchorPane.leftAnchor="18.0"
                AnchorPane.topAnchor="143.0"/>
         <ColorPicker fx:id="appThemeColor" layoutX="15.0" layoutY="160.0" prefHeight="25.0" prefWidth="234.0"
                      AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="160.0"/>
-        <Label fx:id="labelFontStyle" layoutX="18.0" layoutY="194.0" text="Стиль текста" AnchorPane.leftAnchor="18.0"
+        <Label fx:id="labelFontStyle" layoutX="18.0" layoutY="194.0" text="Font color" AnchorPane.leftAnchor="18.0"
                AnchorPane.topAnchor="194.0"/>
         <ColorPicker fx:id="textFontColor" layoutX="15.0" layoutY="211.0" prefHeight="25.0" prefWidth="234.0"
                      AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="211.0"/>
