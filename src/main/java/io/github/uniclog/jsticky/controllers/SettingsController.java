@@ -4,6 +4,7 @@ import io.github.uniclog.jsticky.App;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -15,6 +16,14 @@ public class SettingsController implements ControllersInterface {
     public CheckBox checkWrap;
     public TextArea samples;
     public Spinner<Integer> textSize;
+    public ColorPicker appThemeColor;
+    public ColorPicker textFontColor;
+    public AnchorPane mainPane;
+    public AnchorPane mainPane2;
+    public Label labelFont;
+    public Label labelFontSize;
+    public Label labelThemeStyle;
+    public Label labelFontStyle;
     private Stage stage;
 
     public void initialize() {
@@ -24,19 +33,36 @@ public class SettingsController implements ControllersInterface {
         checkWrap.setSelected(settings.getTextWrap());
         textSize.getValueFactory().setValue(settings.getTextSize());
 
+        appThemeColor.setValue(settings.getAppThemeColor());
+        textFontColor.setValue(settings.getTextFontColor());
+
         choiceTextFamily.getSelectionModel().selectedIndexProperty()
                 .addListener((observable, oldValue, newValue) -> {
                     settings.setTextFontFamily(choiceTextFamily.getItems().get((Integer) newValue));
                     App.settingsReload();
                 });
+
         checkWrap.setOnAction(event -> {
             settings.setTextWrap(checkWrap.isSelected());
             App.settingsReload();
         });
+
         textSize.focusedProperty().addListener((obs, oldValue, newValue) -> {
             settings.setTextSize(textSize.getValue());
             App.settingsReload();
         });
+
+        appThemeColor.setOnAction(event -> {
+            settings.setAppThemeColor(appThemeColor.getValue().toString());
+            App.settingsReload();
+        });
+
+        textFontColor.setOnAction(event -> {
+            settings.setTextFontColor(textFontColor.getValue().toString());
+            App.settingsReload();
+        });
+
+        settingsReload();
     }
 
     public void settingsReload() {
@@ -47,6 +73,17 @@ public class SettingsController implements ControllersInterface {
         ));
         samples.setWrapText(settings.getTextWrap());
 
+        samples.setStyle(String.format("-fx-text-fill: %s ; -fx-background-color: %s ;",
+                settings.getTextFontColorText(),
+                settings.getAppThemeColorText2()));
+        mainPane.setStyle(String.format("-fx-background-color: %s ;", settings.getAppThemeColorText()));
+        mainPane2.setStyle(String.format("-fx-background-color: %s ;", settings.getAppThemeColorText()));
+
+        checkWrap.setStyle(String.format("-fx-text-fill: %s ; ", settings.getTextFontColorText()));
+        labelFont.setStyle(String.format("-fx-text-fill: %s ; ", settings.getTextFontColorText()));
+        labelFontSize.setStyle(String.format("-fx-text-fill: %s ; ", settings.getTextFontColorText()));
+        labelThemeStyle.setStyle(String.format("-fx-text-fill: %s ; ", settings.getTextFontColorText()));
+        labelFontStyle.setStyle(String.format("-fx-text-fill: %s ; ", settings.getTextFontColorText()));
     }
 
     @Override

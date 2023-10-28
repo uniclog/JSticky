@@ -3,8 +3,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
-<AnchorPane prefHeight="282.0" prefWidth="310.0" styleClass="root-class" xmlns="http://javafx.com/javafx/20.0.1"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.uniclog.jsticky.controllers.AppController">
+<AnchorPane fx:id="mainPane" prefHeight="282.0" prefWidth="310.0" styleClass="root-class"
+            xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="io.github.uniclog.jsticky.controllers.AppController">
     <ToggleButton fx:id="exit" layoutX="421.0" mnemonicParsing="false" onAction="#onExit" prefHeight="24.0"
                   prefWidth="24.0" styleClass="gui-exit-button" AnchorPane.rightAnchor="1.0"
                   AnchorPane.topAnchor="1.0"/>
@@ -13,23 +14,25 @@
     <ToggleButton fx:id="fix" layoutX="242.0" layoutY="1.0" mnemonicParsing="false" onAction="#onFix" prefHeight="24.0"
                   prefWidth="24.0" styleClass="gui-fix-button" AnchorPane.rightAnchor="49.0"
                   AnchorPane.topAnchor="1.0"/>
-    <ToggleButton visible="false" fx:id="wrap" layoutX="14.0" layoutY="2.0" mnemonicParsing="false" onAction="#onWrap"
-                  prefHeight="24.0" prefWidth="32.0" styleClass="gui-wrap-button" AnchorPane.leftAnchor="55.0"
+    <ToggleButton fx:id="wrap" layoutX="14.0" layoutY="2.0" mnemonicParsing="false" onAction="#onWrap" prefHeight="24.0"
+                  prefWidth="32.0" styleClass="gui-wrap-button" visible="false" AnchorPane.leftAnchor="55.0"
                   AnchorPane.topAnchor="1.0"/>
     <ToggleButton fx:id="settings" layoutX="33.0" layoutY="2.0" mnemonicParsing="false" onAction="#onSettings"
                   prefHeight="24.0" prefWidth="32.0" styleClass="gui-settings-button" AnchorPane.leftAnchor="1.0"
                   AnchorPane.topAnchor="1.0"/>
-    <ToggleButton fx:id="list" layoutX="65.0" layoutY="2.0" mnemonicParsing="false" onAction="#openList"
+    <ToggleButton layoutX="65.0" layoutY="2.0" mnemonicParsing="false" onAction="#openList"
                   prefHeight="24.0" prefWidth="32.0" styleClass="gui-plus-button" visible="false"
                   AnchorPane.leftAnchor="65.0" AnchorPane.topAnchor="2.0"/>
-
-    <ToggleButton layoutX="14.0" layoutY="2.0" mnemonicParsing="false" onAction="#onScreenCapture"
-                  prefHeight="24.0" prefWidth="32.0" styleClass="gui-screen-cap-button" AnchorPane.leftAnchor="34.0"
+    <ToggleButton layoutX="14.0" layoutY="2.0" mnemonicParsing="false" onAction="#onScreenCapture" prefHeight="24.0"
+                  prefWidth="32.0" styleClass="gui-screen-cap-button" AnchorPane.leftAnchor="34.0"
                   AnchorPane.topAnchor="1.0"/>
-
-    <TextArea fx:id="mainTextArea" layoutX="5.0" layoutY="28.0" prefHeight="236.0" prefWidth="299.0"
-              styleClass="text-area-style" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0"
-              AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="27.0"/>
+    <AnchorPane styleClass="white-anchor-pane" prefHeight="200.0" prefWidth="200.0"
+                AnchorPane.bottomAnchor="5.0"
+                AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="27.0">
+        <TextArea fx:id="mainTextArea" prefHeight="236.0" prefWidth="299.0" styleClass="text-area-style"
+                  AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                  AnchorPane.topAnchor="0.0"/>
+    </AnchorPane>
     <stylesheets>
         <URL value="@style/content.css"/>
         <URL value="@style/controls.css"/>

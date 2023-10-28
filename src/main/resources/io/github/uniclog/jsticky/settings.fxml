@@ -5,41 +5,52 @@
 <?import javafx.scene.layout.*?>
 <?import java.lang.*?>
 <?import java.net.URL?>
-<AnchorPane prefHeight="406.0" prefWidth="273.0" styleClass="root-class" xmlns="http://javafx.com/javafx/17.0.2-ea"
-            xmlns:fx="http://javafx.com/fxml/1"
+<AnchorPane fx:id="mainPane" prefHeight="406.0" prefWidth="273.0" styleClass="root-class"
+            xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="io.github.uniclog.jsticky.controllers.SettingsController">
-    <AnchorPane layoutX="12.0" layoutY="26.0" prefHeight="344.0" prefWidth="246.0" styleClass="settings-root-class"
-                AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0"
-                AnchorPane.topAnchor="27.0">
-        <children>
-            <CheckBox fx:id="checkWrap" layoutX="18.0" layoutY="116.0" mnemonicParsing="false"
-                      text="Авто-перенос текста" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="116.0"/>
-            <Spinner fx:id="textSize" editable="true" layoutX="18.0" layoutY="31.0" prefHeight="25.0" prefWidth="234.0"
-                     AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="31.0">
-                <valueFactory>
-                    <SpinnerValueFactory.IntegerSpinnerValueFactory initialValue="12" max="26" min="8"/>
-                </valueFactory>
-            </Spinner>
-            <ChoiceBox fx:id="choiceTextFamily" layoutX="18.0" layoutY="80.0" prefHeight="25.0" prefWidth="234.0"
-                       value="System" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="80.0">
-                <items>
-                    <FXCollections fx:factory="observableArrayList">
-                        <String fx:value="System"/>
-                        <String fx:value="Times New Roman"/>
-                        <String fx:value="Tahoma"/>
-                        <String fx:value="Inter"/>
-                        <String fx:value="Georgia"/>
-                        <String fx:value="Arial"/>
-                    </FXCollections>
-                </items>
-            </ChoiceBox>
-            <Label layoutX="18.0" layoutY="14.0" text="Шрифт" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="14.0"/>
-            <Label layoutX="18.0" layoutY="63.0" text="Размер шрифта" AnchorPane.leftAnchor="18.0"
-                   AnchorPane.topAnchor="63.0"/>
-            <TextArea fx:id="samples" layoutX="15.0" layoutY="218.0" prefHeight="142.0" prefWidth="234.0"
-                      text="Пример текста" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="218.0"/>
-            <ColorPicker visible="false" layoutX="15.0" layoutY="162.0" prefHeight="25.0" prefWidth="234.0"/>
-        </children>
+    <AnchorPane fx:id="mainPane2" layoutX="12.0" layoutY="26.0" prefHeight="344.0" prefWidth="246.0"
+                styleClass="settings-root-class" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0"
+                AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="27.0">
+        <CheckBox fx:id="checkWrap" layoutX="18.0" layoutY="116.0" mnemonicParsing="false" text="Text wrap"
+                  AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="116.0"/>
+        <Spinner fx:id="textSize" editable="true" layoutX="18.0" layoutY="31.0" prefHeight="25.0" prefWidth="234.0"
+                 AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="31.0">
+            <valueFactory>
+                <SpinnerValueFactory.IntegerSpinnerValueFactory initialValue="12" max="26" min="8"/>
+            </valueFactory>
+        </Spinner>
+        <ChoiceBox fx:id="choiceTextFamily" layoutX="18.0" layoutY="80.0" prefHeight="25.0" prefWidth="234.0"
+                   value="System" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="80.0">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="System"/>
+                    <String fx:value="Times New Roman"/>
+                    <String fx:value="Tahoma"/>
+                    <String fx:value="Inter"/>
+                    <String fx:value="Georgia"/>
+                    <String fx:value="Arial"/>
+                </FXCollections>
+            </items>
+        </ChoiceBox>
+        <Label fx:id="labelFont" layoutX="18.0" layoutY="14.0" text="Font size" AnchorPane.leftAnchor="18.0"
+               AnchorPane.topAnchor="14.0"/>
+        <Label fx:id="labelFontSize" layoutX="18.0" layoutY="63.0" text="Font family" AnchorPane.leftAnchor="18.0"
+               AnchorPane.topAnchor="63.0"/>
+        <AnchorPane styleClass="white-anchor-pane" prefHeight="112.0"
+                    prefWidth="234.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="250.0">
+            <TextArea fx:id="samples" prefHeight="110.0" prefWidth="234.0" text="Hello world..."
+                      AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                      AnchorPane.topAnchor="0.0"/>
+        </AnchorPane>
+        <Label fx:id="labelThemeStyle" layoutX="18.0" layoutY="143.0" text="Main theme color"
+               AnchorPane.leftAnchor="18.0"
+               AnchorPane.topAnchor="143.0"/>
+        <ColorPicker fx:id="appThemeColor" layoutX="15.0" layoutY="160.0" prefHeight="25.0" prefWidth="234.0"
+                     AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="160.0"/>
+        <Label fx:id="labelFontStyle" layoutX="18.0" layoutY="194.0" text="Font color" AnchorPane.leftAnchor="18.0"
+               AnchorPane.topAnchor="194.0"/>
+        <ColorPicker fx:id="textFontColor" layoutX="15.0" layoutY="211.0" prefHeight="25.0" prefWidth="234.0"
+                     AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="211.0"/>
     </AnchorPane>
     <ToggleButton fx:id="exit" mnemonicParsing="false" onAction="#onExit" prefHeight="24.0" prefWidth="24.0"
                   styleClass="gui-exit-button" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0"/>

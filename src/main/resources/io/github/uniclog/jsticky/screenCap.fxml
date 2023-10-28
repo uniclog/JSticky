@@ -3,8 +3,8 @@
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
-<AnchorPane prefHeight="290.0" prefWidth="556.0" styleClass="root-class" xmlns="http://javafx.com/javafx/17.0.2-ea"
-            xmlns:fx="http://javafx.com/fxml/1"
+<AnchorPane fx:id="mainPane" prefHeight="290.0" prefWidth="556.0" styleClass="root-class"
+            xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="io.github.uniclog.jsticky.controllers.ScreenCapController">
 
     <ToggleButton fx:id="exit" mnemonicParsing="false" onAction="#onExit" prefHeight="24.0" prefWidth="24.0"
@@ -15,8 +15,15 @@
     <ToggleButton fx:id="screenLock" layoutX="14.0" layoutY="2.0" mnemonicParsing="false" onAction="#onScreenLock"
                   prefHeight="24.0" prefWidth="32.0" styleClass="gui-screen-cap-button" AnchorPane.rightAnchor="76.0"
                   AnchorPane.topAnchor="1.0"/>
-    <AnchorPane fx:id="capturePane" layoutX="84.0" layoutY="104.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="2.0"
-                AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="26.0"/>
+
+
+    <ToggleButton layoutX="48.0" layoutY="2.0" mnemonicParsing="false" onAction="#onActionCopy"
+                  prefHeight="24.0" prefWidth="32.0" styleClass="gui-copy-button" AnchorPane.leftAnchor="1.0"
+                  AnchorPane.topAnchor="1.0"/>
+
+    <AnchorPane fx:id="capturePane" layoutX="84.0" layoutY="104.0" prefHeight="200.0" prefWidth="200.0"
+                AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="2.0"
+                AnchorPane.topAnchor="26.0"/>
     <stylesheets>
         <URL value="@style/content.css"/>
         <URL value="@style/controls.css"/>

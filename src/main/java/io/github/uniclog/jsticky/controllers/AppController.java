@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -23,6 +24,7 @@ public class AppController implements ControllersInterface {
     public ToggleButton fix;
     public ToggleButton wrap;
     public ToggleButton settings;
+    public AnchorPane mainPane;
     private Stage stage;
 
     @Override
@@ -52,6 +54,12 @@ public class AppController implements ControllersInterface {
                 settings.getTextSize()
         ));
         mainTextArea.setWrapText(settings.getTextWrap());
+
+        mainTextArea.setStyle(String.format(
+                "-fx-background-color: %s ; -fx-text-fill: %s ;",
+                settings.getAppThemeColorText2(),
+                settings.getTextFontColorText()));
+        mainPane.setStyle(String.format("-fx-background-color: %s ;", settings.getAppThemeColorText()));
     }
 
     /**
@@ -118,13 +126,13 @@ public class AppController implements ControllersInterface {
     }
 
     public void openList() {
-        Platform.runLater(() -> {
+        /*Platform.runLater(() -> {
             try {
                 loadListScene();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-        });
+        });*/
     }
 
     public void onScreenCapture() {

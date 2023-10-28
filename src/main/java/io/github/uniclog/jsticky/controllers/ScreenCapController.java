@@ -1,7 +1,8 @@
 package io.github.uniclog.jsticky.controllers;
 
 import io.github.uniclog.jsticky.App;
-import javafx.animation.AnimationTimer;
+import io.github.uniclog.jsticky.utils.ClipboardUtils;
+import javafx.application.Platform;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -13,27 +14,38 @@ import javafx.scene.robot.Robot;
 import javafx.stage.Stage;
 
 import java.awt.*;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicBoolean;
+
+import static io.github.uniclog.jsticky.App.jStickyData;
+import static java.util.Objects.nonNull;
 
 public class ScreenCapController implements ControllersInterface {
     private static boolean alwaysOnTop = false;
     private final Robot robot;
+    private final AtomicBoolean screenLockFlag = new AtomicBoolean(false);
     public ToggleButton exit;
     public ToggleButton fix;
     public AnchorPane capturePane;
     public ToggleButton screenLock;
+    public AnchorPane mainPane;
+    private Timer timerEx;
     private Stage stage;
     private ImageView view;
-    private AnimationTimer timer;
-
-    private final AtomicBoolean screenLockFlag = new AtomicBoolean(false);
 
     public ScreenCapController() {
         robot = new Robot();
     }
 
     public void initialize() {
+        settingsReload();
+    }
 
+    public void settingsReload() {
+        var settings = jStickyData.getSettings();
+
+        mainPane.setStyle(String.format("-fx-background-color: %s ;", settings.getAppThemeColorText()));
     }
 
     @Override
@@ -41,27 +53,14 @@ public class ScreenCapController implements ControllersInterface {
         this.stage = stage;
         setupRootListeners(root, scene, stage);
         exit.setOnMouseMoved(mouseEvent -> controlService.setOnMouseMoved(mouseEvent, exit.getScene()));
-
-        var screen = Toolkit.getDefaultToolkit().getScreenSize();
-        WritableImage image = robot.getScreenCapture(null, new Rectangle2D(0, 0, screen.getWidth(), screen.getHeight()));
-        view = new ImageView(image);
-        view.setViewport(new Rectangle2D(stage.getX(), stage.getY(), 290, 556));
+        view = new ImageView();
         capturePane.getChildren().add(view);
-        timer = new AnimationTimer() {
-            @Override
-            public void handle(long now) {
-                if (!screenLockFlag.get()) {
-                    view.setViewport(new Rectangle2D(stage.getX(), stage.getY(), capturePane.getWidth(), capturePane.getHeight()));
-                    view.setFitWidth(capturePane.getWidth());
-                    view.setFitHeight(capturePane.getHeight());
-                }
-            }
-        };
         show();
+
     }
 
     public void onExit() {
-        timer.stop();
+        timerEx.cancel();
         view.setImage(null);
         stage.close();
         stage = null;
@@ -76,7 +75,26 @@ public class ScreenCapController implements ControllersInterface {
 
         stage.centerOnScreen();
         view.setViewport(new Rectangle2D(stage.getX(), stage.getY(), 290, 556));
-        timer.start();
+
+        timerEx = new Timer("ScreenCapTimer");
+        timerEx.scheduleAtFixedRate(
+                new TimerTask() {
+                    @Override
+                    public void run() {
+                        if (!screenLockFlag.get() && nonNull(stage)) {
+                            Platform.runLater(() -> {
+                                try {
+                                    var r2d = new Rectangle2D(stage.getX(), stage.getY(), capturePane.getWidth(), capturePane.getHeight());
+                                    view.setViewport(r2d);
+                                    view.setFitWidth(capturePane.getWidth());
+                                    view.setFitHeight(capturePane.getHeight());
+                                } catch (NullPointerException ignored) {
+                                }
+                            });
+                        }
+                    }
+                }, 100, 20);
+
         stage.show();
         screenLockFlag.set(false);
         screenLock.getStyleClass().removeAll("gui-screen-cap-button-on");
@@ -106,4 +124,11 @@ public class ScreenCapController implements ControllersInterface {
         }
         alwaysOnTop = !alwaysOnTop;
     }
+
+    public void onActionCopy() {
+        WritableImage viewportImage = new WritableImage((int) capturePane.getWidth(), (int) capturePane.getHeight());
+        view.snapshot(null, viewportImage);
+        ClipboardUtils.copyToClipboard(viewportImage);
+    }
+
 }

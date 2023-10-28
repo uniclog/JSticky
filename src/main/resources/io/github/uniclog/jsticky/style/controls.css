@@ -114,3 +114,30 @@
 .gui-screen-cap-button:hover {
     -fx-background-color: rgba(0, 0, 0, 0.1);
 }
+
+
+/* Download button */
+.gui-download-button {
+    -fx-background-image: url("../img/window_download_icon.png");
+    -fx-background-size: 16px 16px;
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-color: rgba(0, 0, 0, 0);
+}
+
+.gui-download-button:hover {
+    -fx-background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Copy button */
+.gui-copy-button {
+    -fx-background-image: url("../img/window_copy_icon.png");
+    -fx-background-size: 16px 16px;
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-color: rgba(0, 0, 0, 0);
+}
+
+.gui-copy-button:hover {
+    -fx-background-color: rgba(0, 0, 0, 0.1);
+}
