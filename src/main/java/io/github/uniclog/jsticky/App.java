@@ -142,10 +142,8 @@ public class App extends Application {
                 var actual = jStickyData.getContent();
                 var windowSettings = jStickyData.getWindowSettings();
                 if (nonNull(actual) && !actual.equals(jStickyData.getContentMirror())
-                    || windowSettings.isModify(appStage.getWidth(), appStage.getHeight())) {
-                    windowSettings.setWidth(appStage.getWidth());
-                    windowSettings.setHeigth(appStage.getHeight());
-
+                        || windowSettings.isModify(appStage.getWidth(), appStage.getHeight(), appStage.getX(), appStage.getY())) {
+                    windowSettings.modifySettings(appStage.getWidth(), appStage.getHeight(), appStage.getX(), appStage.getY());
                     saveObjectAsJson(J_STICKY_DATA_PATH, jStickyData);
                     jStickyData.setContentMirror(actual);
                 }
@@ -166,8 +164,13 @@ public class App extends Application {
         appStage.setTitle("jSticky");
         appStage.toFront();
         appStage.setScene(scene);
-        appStage.setWidth(jStickyData.getWindowSettings().getWidth());
-        appStage.setHeight(jStickyData.getWindowSettings().getHeigth());
+
+        var windowSettings = jStickyData.getWindowSettings();
+        appStage.setWidth(windowSettings.getWidth());
+        appStage.setHeight(windowSettings.getHeigth());
+        appStage.setX(windowSettings.getPosX());
+        appStage.setY(windowSettings.getPosY());
+
         appStage.show();
     }
 }
