@@ -1,4 +1,5 @@
 # JSticky
 JSticky - simple app for notes
 
-![image](https://github.com/uniclog/JSticky/assets/10725852/0a6d466f-ad83-41c9-91eb-49c69840c8f0)
+![image](![image](https://github.com/uniclog/JSticky/assets/10725852/d4c0a4c3-4fe1-4a51-8677-cdd517b86e6b)
+)
