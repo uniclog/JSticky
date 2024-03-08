@@ -126,6 +126,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+        appStage = new Stage();
         initialize();
         loadAppScene();
     }
@@ -139,7 +140,10 @@ public class App extends Application {
             @Override
             public void run() {
                 var actual = jStickyData.getContent();
-                if (nonNull(actual) && !actual.equals(jStickyData.getContentMirror())) {
+                var windowSettings = jStickyData.getWindowSettings();
+                if (nonNull(actual) && !actual.equals(jStickyData.getContentMirror())
+                        || windowSettings.isModify(appStage.getWidth(), appStage.getHeight(), appStage.getX(), appStage.getY())) {
+                    windowSettings.modifySettings(appStage.getWidth(), appStage.getHeight(), appStage.getX(), appStage.getY());
                     saveObjectAsJson(J_STICKY_DATA_PATH, jStickyData);
                     jStickyData.setContentMirror(actual);
                 }
@@ -152,7 +156,6 @@ public class App extends Application {
         var loader = new FXMLLoader(getClass().getResource("view.fxml"));
         var root = (Parent) loader.load();
         var scene = new Scene(root);
-        appStage = new Stage();
 
         appController = loader.getController();
         appController.setStageAndSetupListeners(root, scene, appStage);
@@ -161,6 +164,13 @@ public class App extends Application {
         appStage.setTitle("jSticky");
         appStage.toFront();
         appStage.setScene(scene);
+
+        var windowSettings = jStickyData.getWindowSettings();
+        appStage.setWidth(windowSettings.getWidth());
+        appStage.setHeight(windowSettings.getHeigth());
+        appStage.setX(windowSettings.getPosX());
+        appStage.setY(windowSettings.getPosY());
+
         appStage.show();
     }
 }
