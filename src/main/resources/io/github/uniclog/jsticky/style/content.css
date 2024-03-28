@@ -24,6 +24,10 @@
     -fx-text-fill: #000000;
 }
 
+.text-area-style .content {
+    -fx-cursor: DEFAULT;
+}
+
 /* The main scrollbar **track** CSS class  */
 .text-area-style .scroll-bar:horizontal .track,
 .text-area-style .scroll-bar:vertical .track{
