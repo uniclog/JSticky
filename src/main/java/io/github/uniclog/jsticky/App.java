@@ -167,7 +167,7 @@ public class App extends Application {
 
         var windowSettings = jStickyData.getWindowSettings();
         appStage.setWidth(windowSettings.getWidth());
-        appStage.setHeight(windowSettings.getHeigth());
+        appStage.setHeight(windowSettings.getHeight());
         appStage.setX(windowSettings.getPosX());
         appStage.setY(windowSettings.getPosY());
 
