@@ -14,6 +14,7 @@ public class SettingsController implements ControllersInterface {
     public ToggleButton exit;
     public ChoiceBox<String> choiceTextFamily;
     public CheckBox checkWrap;
+    public CheckBox mouseHoverOpacity;
     public TextArea samples;
     public Spinner<Integer> textSize;
     public ColorPicker appThemeColor;
@@ -24,13 +25,21 @@ public class SettingsController implements ControllersInterface {
     public Label labelFontSize;
     public Label labelThemeStyle;
     public Label labelFontStyle;
+    public Label labelOpacity;
+    public Label title;
+    public Label labelVersion;
+    public Label labelMouseHoverOpacity;
+    public Label labelCheckWrap;
+    public Slider sliderOpacity;
     private Stage stage;
 
     public void initialize() {
         var settings = jStickyData.getSettings();
+        var windowSettings = jStickyData.getWindowSettings();
 
         choiceTextFamily.setValue(settings.getTextFontFamily());
         checkWrap.setSelected(settings.getTextWrap());
+        mouseHoverOpacity.setSelected(windowSettings.isMouseHoverOpacity());
         textSize.getValueFactory().setValue(settings.getTextSize());
 
         appThemeColor.setValue(settings.getAppThemeColor());
@@ -62,11 +71,21 @@ public class SettingsController implements ControllersInterface {
             App.settingsReload();
         });
 
-        settingsReload();
+        sliderOpacity.setOnMouseReleased(event -> {
+            windowSettings.setOpacity(sliderOpacity.getValue());
+            App.settingsReload();
+        });
+
+        mouseHoverOpacity.setOnAction(event -> {
+            jStickyData.getWindowSettings().setMouseHoverOpacity(mouseHoverOpacity.isSelected());
+            App.settingsReload();
+        });
     }
 
     public void settingsReload() {
         var settings = jStickyData.getSettings();
+        var windowSettings = jStickyData.getWindowSettings();
+
         samples.setFont(new Font(
                 settings.getTextFontFamily(),
                 settings.getTextSize()
@@ -79,11 +98,20 @@ public class SettingsController implements ControllersInterface {
         mainPane.setStyle(String.format("-fx-background-color: %s ;", settings.getAppThemeColorText()));
         mainPane2.setStyle(String.format("-fx-background-color: %s ;", settings.getAppThemeColorText()));
 
-        checkWrap.setStyle(String.format("-fx-text-fill: %s ; ", settings.getTextFontColorText()));
+        labelCheckWrap.setStyle(String.format("-fx-text-fill: %s ; ", settings.getTextFontColorText()));
         labelFont.setStyle(String.format("-fx-text-fill: %s ; ", settings.getTextFontColorText()));
         labelFontSize.setStyle(String.format("-fx-text-fill: %s ; ", settings.getTextFontColorText()));
         labelThemeStyle.setStyle(String.format("-fx-text-fill: %s ; ", settings.getTextFontColorText()));
         labelFontStyle.setStyle(String.format("-fx-text-fill: %s ; ", settings.getTextFontColorText()));
+        labelOpacity.setStyle(String.format("-fx-text-fill: %s ; ", settings.getTextFontColorText()));
+        title.setStyle(String.format("-fx-text-fill: %s ; ", settings.getTextFontColorText()));
+        labelVersion.setStyle(String.format("-fx-text-fill: %s ; ", settings.getTextFontColorText()));
+        labelMouseHoverOpacity.setStyle(String.format("-fx-text-fill: %s ; ", settings.getTextFontColorText()));
+
+        var opacity = windowSettings.getOpacity();
+        sliderOpacity.setValue(opacity);
+
+        // stage.setOpacity(opacity);
     }
 
     @Override
@@ -91,6 +119,7 @@ public class SettingsController implements ControllersInterface {
         this.stage = stage;
         setupRootListeners(root, scene, stage);
         exit.setOnMouseMoved(mouseEvent -> controlService.setOnMouseMoved(mouseEvent, exit.getScene()));
+        this.settingsReload();
     }
 
     public void onExit() {
