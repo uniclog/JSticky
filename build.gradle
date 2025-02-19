@@ -32,9 +32,14 @@ javafx {
 }
 
 dependencies {
-    implementation('com.dlsc.formsfx:formsfx-core:11.6.0') {
-        exclude(group: 'org.openjfx')
-    }
+    // implementation('com.dlsc.formsfx:formsfx-core:11.6.0') {
+    //     exclude(group: 'org.openjfx')
+    // }
+    implementation 'org.openjfx:javafx-controls:21.0.1'
+    implementation 'org.openjfx:javafx-fxml:21.0.1'
+    //implementation 'org.openjfx:javafx-base:21.0.1'
+    //implementation 'org.openjfx:javafx-graphics:21.0.1'
+
     implementation 'com.google.code.gson:gson:2.10.1'
     annotationProcessor 'org.projectlombok:lombok:1.18.26'
     implementation 'org.projectlombok:lombok:1.18.26'
