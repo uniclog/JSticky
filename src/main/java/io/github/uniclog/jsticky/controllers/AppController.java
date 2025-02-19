@@ -34,6 +34,8 @@ public class AppController implements ControllersInterface {
         exit.setOnMouseMoved(mouseEvent -> controlService.setOnMouseMoved(mouseEvent, exit.getScene()));
         mainTextArea.setOnMouseMoved(mouseEvent -> controlService.setOnMouseMoved(mouseEvent, exit.getScene()));
         fix.setOnMouseMoved(mouseEvent -> controlService.setOnMouseMoved(mouseEvent, exit.getScene()));
+        settingsReload();
+        addMouseHoverOpacityListeners(scene, stage);
     }
 
     /**
@@ -44,22 +46,23 @@ public class AppController implements ControllersInterface {
             mainTextArea.setText(jStickyData.getContent());
         }
         mainTextArea.setOnKeyReleased(event -> jStickyData.setContent(mainTextArea.getText()));
-        settingsReload();
     }
 
     public void settingsReload() {
         var settings = jStickyData.getSettings();
+        var windowSettings = jStickyData.getWindowSettings();
+
         mainTextArea.setFont(new Font(
                 settings.getTextFontFamily(),
                 settings.getTextSize()
         ));
         mainTextArea.setWrapText(settings.getTextWrap());
-
         mainTextArea.setStyle(String.format(
                 "-fx-background-color: %s ; -fx-text-fill: %s ;",
                 settings.getAppThemeColorText2(),
                 settings.getTextFontColorText()));
         mainPane.setStyle(String.format("-fx-background-color: %s ;", settings.getAppThemeColorText()));
+        stage.setOpacity(windowSettings.getOpacity());
     }
 
     /**

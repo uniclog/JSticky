@@ -39,13 +39,14 @@ public class ScreenCapController implements ControllersInterface {
     }
 
     public void initialize() {
-        settingsReload();
     }
 
     public void settingsReload() {
         var settings = jStickyData.getSettings();
+        var windowSettings = jStickyData.getWindowSettings();
 
         mainPane.setStyle(String.format("-fx-background-color: %s ;", settings.getAppThemeColorText()));
+        stage.setOpacity(windowSettings.getOpacity());
     }
 
     @Override
@@ -56,7 +57,8 @@ public class ScreenCapController implements ControllersInterface {
         view = new ImageView();
         capturePane.getChildren().add(view);
         show();
-
+        settingsReload();
+        addMouseHoverOpacityListeners(scene, stage);
     }
 
     public void onExit() {

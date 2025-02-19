@@ -105,6 +105,8 @@ public class App extends Application {
 
     public static void close() {
         // stages check
+        var windowSettings = jStickyData.getWindowSettings();
+        windowSettings.modifySettings(appStage.getWidth(), appStage.getHeight(), appStage.getX(), appStage.getY());
         saveObjectAsJson(J_STICKY_DATA_PATH, jStickyData);
 
         SceneControlService.onExit();
