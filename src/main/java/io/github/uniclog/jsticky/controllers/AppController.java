@@ -36,6 +36,7 @@ public class AppController implements ControllersInterface {
         fix.setOnMouseMoved(mouseEvent -> controlService.setOnMouseMoved(mouseEvent, exit.getScene()));
         settingsReload();
         addMouseHoverOpacityListeners(scene, stage);
+        stage.setOnCloseRequest(event -> App.close());
     }
 
     /**
