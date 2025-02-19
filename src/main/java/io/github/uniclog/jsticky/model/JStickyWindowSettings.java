@@ -21,4 +21,32 @@ public class JStickyWindowSettings {
         this.posX = posX;
         this.posY = posY;
     }
+
+    public Double getPosX() {
+        if (posX < 0D) {
+            posX = 0D;
+        }
+        return posX;
+    }
+
+    public Double getPosY() {
+        if (posY < 0D) {
+            posY = 0D;
+        }
+        return posY;
+    }
+
+    public Double getWidth() {
+        if (width < 152D) {
+            width = 152D;
+        }
+        return width;
+    }
+
+    public Double getHeight() {
+        if (height < 74D) {
+            height = 74D;
+        }
+        return height;
+    }
 }
