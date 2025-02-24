@@ -4,11 +4,11 @@ import lombok.Data;
 
 @Data
 public class JStickyWindowSettings {
-    private Double width = 310D;
-    private Double height = 280D;
+    private Double width = 310.0D;
+    private Double height = 280.0D;
 
-    private Double posX = 0D;
-    private Double posY = 0D;
+    private Double posX = 0.0D;
+    private Double posY = 0.0D;
 
     private Double opacity = 0.5D;
     private Boolean mouseHoverOpacity = false;
@@ -38,28 +38,28 @@ public class JStickyWindowSettings {
     }
 
     public Double getPosX() {
-        if (posX < 0D) {
+        if (posX == null || posX < 0D) {
             posX = 0D;
         }
         return posX;
     }
 
     public Double getPosY() {
-        if (posY < 0D) {
+        if (posY == null || posY < 0D) {
             posY = 0D;
         }
         return posY;
     }
 
     public Double getWidth() {
-        if (width < 152D) {
+        if (width == null || width < 152D) {
             width = 152D;
         }
         return width;
     }
 
     public Double getHeight() {
-        if (height < 74D) {
+        if (height == null || height < 74D) {
             height = 74D;
         }
         return height;
