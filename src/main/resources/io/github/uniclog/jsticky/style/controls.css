@@ -83,7 +83,7 @@
 
 /* Plus button */
 .gui-plus-button {
-    -fx-background-image: url("../img/window_plus_icon.png");
+    /*-fx-background-image: url("../img/window_plus_icon.png");*/
     -fx-background-size: 16px 16px;
     -fx-background-position: center;
     -fx-background-repeat: no-repeat;
