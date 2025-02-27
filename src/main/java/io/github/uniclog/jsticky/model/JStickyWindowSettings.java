@@ -7,27 +7,39 @@ public class JStickyWindowSettings {
     private Double width = 310.0D;
     private Double height = 280.0D;
 
-    private Double posX = 0.0D;
-    private Double posY = 0.0D;
+    private Double posX;
+    private Double posY;
 
-    private Double opacity = 0.5D;
+    private Double opacity = 1.0D;
     private Boolean mouseHoverOpacity = false;
 
     /// Use in safe timer - dynamic parameters
-    public boolean isModify(Double width, Double heigth, Double posX, Double posY) {
-        return !this.width.equals(width) || !this.height.equals(heigth)
-                || !this.posX.equals(posX) || !this.posY.equals(posY);
+    public boolean isModify(Double width, Double height, Double posX, Double posY) {
+        return isModifyD(this.width, width) || isModifyD(this.height, height)
+                || isModifyD(this.posX, posX) || isModifyD(this.posY, posY);
+    }
+
+    private boolean isModifyD(Double d1, Double d2) {
+        return d1 != null && !d1.isNaN() && d2 != null && !d2.isNaN() && !d1.equals(d2);
     }
 
     public void modifySettings(Double width, Double height, Double posX, Double posY) {
-        this.width = width;
-        this.height = height;
-        this.posX = posX;
-        this.posY = posY;
+        if (!width.isNaN()) {
+            this.width = width;
+        }
+        if (!height.isNaN()) {
+            this.height = height;
+        }
+        if (!posX.isNaN()) {
+            this.posX = posX;
+        }
+        if (!posY.isNaN()) {
+            this.posY = posY;
+        }
     }
 
     public Double getOpacity() {
-        if (opacity == null || opacity < 0.004D || opacity > 1.0D) {
+        if (opacity == null || opacity.isNaN() || opacity < 0.004D || opacity > 1.0D) {
             opacity = 1.0D;
         }
         return opacity;
@@ -38,28 +50,40 @@ public class JStickyWindowSettings {
     }
 
     public Double getPosX() {
-        if (posX == null || posX < 0D) {
+        if (posX == null || posX.isNaN()) {
+            return null;
+        }
+        if (posX < 0.0D) {
             posX = 0D;
         }
         return posX;
     }
 
     public Double getPosY() {
-        if (posY == null || posY < 0D) {
+        if (posY == null || posY.isNaN()) {
+            return null;
+        }
+        if (posY < 0D) {
             posY = 0D;
         }
         return posY;
     }
 
     public Double getWidth() {
-        if (width == null || width < 152D) {
+        if (width == null || width.isNaN()) {
+            return null;
+        }
+        if (width < 152D) {
             width = 152D;
         }
         return width;
     }
 
     public Double getHeight() {
-        if (height == null || height < 74D) {
+        if (height == null || height.isNaN()) {
+            return null;
+        }
+        if (height < 74D) {
             height = 74D;
         }
         return height;
