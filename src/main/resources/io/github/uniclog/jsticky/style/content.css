@@ -22,6 +22,7 @@
     /*-fx-font-size: 12px;*/
     /*-fx-font-family: "System Bold";*/
     -fx-text-fill: #000000;
+    -fx-fill: #000000;
 }
 
 .text-area-style .content {

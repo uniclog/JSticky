@@ -3,6 +3,8 @@ package io.github.uniclog.jsticky.model;
 import javafx.scene.paint.Color;
 import lombok.Data;
 
+import static java.lang.Math.min;
+
 @Data
 public class JStickySettings {
     private Boolean textWrap = false;
@@ -17,16 +19,10 @@ public class JStickySettings {
     }
 
     public String getAppThemeColorText2() {
-        double value = 0.20;
-        var theme = Color.web(appThemeColor);
+        var theme = getAppThemeColor();
         double red = theme.getRed(),
                 green = theme.getGreen(),
                 blue = theme.getBlue();
-        // var dominance = Math.max(red, Math.max(green, blue));
-        // if (red >= value && red == dominance) red -= value;
-        // if (green >= value && green == dominance) green -= value;
-        // if (blue >= value && blue == dominance) blue -= value;
-
         return new Color(red, green, blue, 0.8)
                 .toString()
                 .replaceAll("0x", "#");
@@ -34,6 +30,16 @@ public class JStickySettings {
 
     public Color getTextFontColor() {
         return Color.web(textFontColor);
+    }
+
+    public String getTextFontColorAsString2() {
+        var color = getTextFontColor();
+        double red = min(1.0, color.getRed() + 0.2),
+                green = color.getGreen(),
+                blue = color.getBlue();
+        return new Color(red, green, blue, 0.8)
+                .toString()
+                .replaceAll("0x", "#");
     }
 
     public String getAppThemeColorText() {

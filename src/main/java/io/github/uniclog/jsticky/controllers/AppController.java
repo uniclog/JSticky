@@ -19,7 +19,8 @@ import static java.util.Objects.nonNull;
 public class AppController implements ControllersInterface {
     private static boolean alwaysOnTop = false;
     private static boolean onWrap = false;
-    public TextArea mainTextArea;
+
+    public InlineCssTextArea mainTextArea;
     public ToggleButton exit;
     public ToggleButton fix;
     public ToggleButton wrap;
@@ -44,7 +45,7 @@ public class AppController implements ControllersInterface {
      */
     public void initialize() {
         if (nonNull(jStickyData) && nonNull(jStickyData.getContent())) {
-            mainTextArea.setText(jStickyData.getContent());
+            mainTextArea.appendText(jStickyData.getContent());
         }
         mainTextArea.setOnKeyReleased(event -> jStickyData.setContent(mainTextArea.getText()));
     }
@@ -114,7 +115,6 @@ public class AppController implements ControllersInterface {
         onWrap = !onWrap;
         mainTextArea.setWrapText(onWrap);
     }
-
 
     /**
      * Button: App settings
