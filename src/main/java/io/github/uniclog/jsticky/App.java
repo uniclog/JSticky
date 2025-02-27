@@ -24,6 +24,7 @@ import static java.util.Objects.nonNull;
 import static javafx.stage.StageStyle.UNDECORATED;
 
 public class App extends Application {
+    private volatile static boolean APP_STOP = false;
 
     public static final String J_STICKY_DATA_PATH = "jSticky.ini";
     private static final Timer dataSaveTimer = new Timer("DataSaveTimer");
@@ -104,7 +105,8 @@ public class App extends Application {
     }*/
 
     public static void close() {
-        // stages check
+        App.APP_STOP = true;
+
         var windowSettings = jStickyData.getWindowSettings();
         windowSettings.modifySettings(appStage.getWidth(), appStage.getHeight(), appStage.getX(), appStage.getY());
         saveObjectAsJson(J_STICKY_DATA_PATH, jStickyData);
@@ -141,6 +143,7 @@ public class App extends Application {
         TimerTask dataSaveTimerTask = new TimerTask() {
             @Override
             public void run() {
+                if (App.APP_STOP) return;
                 var actual = jStickyData.getContent();
                 var windowSettings = jStickyData.getWindowSettings();
                 if (nonNull(actual) && !actual.equals(jStickyData.getContentMirror())
@@ -151,7 +154,7 @@ public class App extends Application {
                 }
             }
         };
-        dataSaveTimer.scheduleAtFixedRate(dataSaveTimerTask, 1000, 8000);
+        dataSaveTimer.scheduleAtFixedRate(dataSaveTimerTask, 10000, 10000);
     }
 
     private void loadAppScene() throws IOException {
@@ -168,10 +171,14 @@ public class App extends Application {
         appStage.setScene(scene);
 
         var windowSettings = jStickyData.getWindowSettings();
-        appStage.setWidth(windowSettings.getWidth());
-        appStage.setHeight(windowSettings.getHeight());
-        appStage.setX(windowSettings.getPosX());
-        appStage.setY(windowSettings.getPosY());
+        var width = windowSettings.getWidth();
+        if (width != null) appStage.setWidth(width);
+        var height = windowSettings.getHeight();
+        if (height != null) appStage.setHeight(height);
+        var posX = windowSettings.getPosX();
+        if (posX != null) appStage.setX(posX);
+        var posY = windowSettings.getPosY();
+        if (posY != null) appStage.setY(posY);
 
         appStage.show();
     }
