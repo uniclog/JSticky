@@ -1,6 +1,7 @@
 module io.github.uniclog.jsticky {
     requires javafx.controls;
     requires javafx.fxml;
+    requires org.fxmisc.richtext;
 
     requires java.desktop;
     requires com.google.gson;
