@@ -18,7 +18,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import static io.github.uniclog.jsticky.App.jStickyData;
+import static io.github.uniclog.jsticky.App.J_STICKY_DATA;
 import static java.util.Objects.nonNull;
 
 public class ScreenCapController implements ControllersInterface {
@@ -39,13 +39,14 @@ public class ScreenCapController implements ControllersInterface {
     }
 
     public void initialize() {
-        settingsReload();
     }
 
     public void settingsReload() {
-        var settings = jStickyData.getSettings();
+        var settings = J_STICKY_DATA.getSettings();
+        var windowSettings = J_STICKY_DATA.getWindowSettings();
 
         mainPane.setStyle(String.format("-fx-background-color: %s ;", settings.getAppThemeColorText()));
+        stage.setOpacity(windowSettings.getOpacity());
     }
 
     @Override
@@ -56,7 +57,8 @@ public class ScreenCapController implements ControllersInterface {
         view = new ImageView();
         capturePane.getChildren().add(view);
         show();
-
+        settingsReload();
+        addMouseHoverOpacityListeners(scene, stage);
     }
 
     public void onExit() {

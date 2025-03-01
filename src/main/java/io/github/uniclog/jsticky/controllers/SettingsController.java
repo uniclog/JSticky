@@ -8,12 +8,15 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-import static io.github.uniclog.jsticky.App.jStickyData;
+import static io.github.uniclog.jsticky.App.J_STICKY_DATA;
+import static java.lang.String.format;
 
 public class SettingsController implements ControllersInterface {
     public ToggleButton exit;
     public ChoiceBox<String> choiceTextFamily;
     public CheckBox checkWrap;
+    public CheckBox spellCheck;
+    public CheckBox mouseHoverOpacity;
     public TextArea samples;
     public Spinner<Integer> textSize;
     public ColorPicker appThemeColor;
@@ -24,13 +27,23 @@ public class SettingsController implements ControllersInterface {
     public Label labelFontSize;
     public Label labelThemeStyle;
     public Label labelFontStyle;
+    public Label labelOpacity;
+    public Label title;
+    public Label labelVersion;
+    public Label labelMouseHoverOpacity;
+    public Label labelCheckWrap;
+    public Label labelSpellCheck;
+    public Slider sliderOpacity;
     private Stage stage;
 
     public void initialize() {
-        var settings = jStickyData.getSettings();
+        var settings = J_STICKY_DATA.getSettings();
+        var windowSettings = J_STICKY_DATA.getWindowSettings();
 
         choiceTextFamily.setValue(settings.getTextFontFamily());
         checkWrap.setSelected(settings.getTextWrap());
+        spellCheck.setSelected(settings.getSpellCheck());
+        mouseHoverOpacity.setSelected(windowSettings.isMouseHoverOpacity());
         textSize.getValueFactory().setValue(settings.getTextSize());
 
         appThemeColor.setValue(settings.getAppThemeColor());
@@ -44,6 +57,16 @@ public class SettingsController implements ControllersInterface {
 
         checkWrap.setOnAction(event -> {
             settings.setTextWrap(checkWrap.isSelected());
+            App.settingsReload();
+        });
+
+        spellCheck.setOnAction(event -> {
+            settings.setSpellCheck(spellCheck.isSelected());
+            if (spellCheck.isSelected()) {
+                App.loadDictionaries();
+            } else {
+                App.uploadDictionaries();
+            }
             App.settingsReload();
         });
 
@@ -62,28 +85,49 @@ public class SettingsController implements ControllersInterface {
             App.settingsReload();
         });
 
-        settingsReload();
+        sliderOpacity.setOnMouseReleased(event -> {
+            windowSettings.setOpacity(sliderOpacity.getValue());
+            App.settingsReload();
+        });
+
+        mouseHoverOpacity.setOnAction(event -> {
+            J_STICKY_DATA.getWindowSettings().setMouseHoverOpacity(mouseHoverOpacity.isSelected());
+            App.settingsReload();
+        });
     }
 
     public void settingsReload() {
-        var settings = jStickyData.getSettings();
+        var settings = J_STICKY_DATA.getSettings();
+        var windowSettings = J_STICKY_DATA.getWindowSettings();
+
         samples.setFont(new Font(
                 settings.getTextFontFamily(),
                 settings.getTextSize()
         ));
         samples.setWrapText(settings.getTextWrap());
 
-        samples.setStyle(String.format("-fx-text-fill: %s ; -fx-background-color: %s ;",
+        samples.setStyle(format("-fx-text-fill: %s ; -fx-background-color: %s ;",
                 settings.getTextFontColorText(),
                 settings.getAppThemeColorText2()));
-        mainPane.setStyle(String.format("-fx-background-color: %s ;", settings.getAppThemeColorText()));
-        mainPane2.setStyle(String.format("-fx-background-color: %s ;", settings.getAppThemeColorText()));
+        mainPane.setStyle(format("-fx-background-color: %s ;", settings.getAppThemeColorText()));
+        mainPane2.setStyle(format("-fx-background-color: %s ;", settings.getAppThemeColorText()));
 
-        checkWrap.setStyle(String.format("-fx-text-fill: %s ; ", settings.getTextFontColorText()));
-        labelFont.setStyle(String.format("-fx-text-fill: %s ; ", settings.getTextFontColorText()));
-        labelFontSize.setStyle(String.format("-fx-text-fill: %s ; ", settings.getTextFontColorText()));
-        labelThemeStyle.setStyle(String.format("-fx-text-fill: %s ; ", settings.getTextFontColorText()));
-        labelFontStyle.setStyle(String.format("-fx-text-fill: %s ; ", settings.getTextFontColorText()));
+        String labelColor = format("-fx-text-fill: %s ; ", settings.getTextFontColorText());
+        labelCheckWrap.setStyle(labelColor);
+        labelSpellCheck.setStyle(labelColor);
+        labelFont.setStyle(labelColor);
+        labelFontSize.setStyle(labelColor);
+        labelThemeStyle.setStyle(labelColor);
+        labelFontStyle.setStyle(labelColor);
+        labelOpacity.setStyle(labelColor);
+        title.setStyle(labelColor);
+        labelVersion.setStyle(labelColor);
+        labelMouseHoverOpacity.setStyle(labelColor);
+
+        var opacity = windowSettings.getOpacity();
+        sliderOpacity.setValue(opacity);
+
+        // stage.setOpacity(opacity);
     }
 
     @Override
@@ -91,6 +135,7 @@ public class SettingsController implements ControllersInterface {
         this.stage = stage;
         setupRootListeners(root, scene, stage);
         exit.setOnMouseMoved(mouseEvent -> controlService.setOnMouseMoved(mouseEvent, exit.getScene()));
+        this.settingsReload();
     }
 
     public void onExit() {

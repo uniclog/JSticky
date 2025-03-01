@@ -1,10 +1,12 @@
 module io.github.uniclog.jsticky {
     requires javafx.controls;
     requires javafx.fxml;
+    requires org.fxmisc.richtext;
 
     requires java.desktop;
     requires com.google.gson;
     requires lombok;
+    requires org.fxmisc.flowless;
 
     exports io.github.uniclog.jsticky.model;
     exports io.github.uniclog.jsticky;
