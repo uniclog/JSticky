@@ -87,7 +87,7 @@ public class AppController implements ControllersInterface {
         var windowSettings = J_STICKY_DATA.getWindowSettings();
 
         mainTextAreaStyleReload();
-        mainPane.setStyle(format("-fx-background-color: %s ;", settings.getAppThemeColorText()));
+        mainPane.setStyle(format("-fx-background-color: %s ;", settings.getAppThemeColorText2()));
         mainTextAreaScrollPane.setStyle(format("-fx-background-color: %s ;", settings.getAppThemeColorText()));
         stage.setOpacity(windowSettings.getOpacity());
     }
