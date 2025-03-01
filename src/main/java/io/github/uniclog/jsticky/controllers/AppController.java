@@ -9,6 +9,7 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.fxmisc.flowless.VirtualizedScrollPane;
 import org.fxmisc.richtext.InlineCssTextArea;
 
 import java.io.IOException;
@@ -22,7 +23,9 @@ public class AppController implements ControllersInterface {
     private static boolean alwaysOnTop = false;
     private static boolean onWrap = false;
 
-    public InlineCssTextArea mainTextArea;
+    public AnchorPane mainTextAreaContainer;
+    private InlineCssTextArea mainTextArea;
+    private VirtualizedScrollPane<InlineCssTextArea> mainTextAreaScrollPane;
     public ToggleButton exit;
     public ToggleButton fix;
     public ToggleButton wrap;
@@ -65,6 +68,15 @@ public class AppController implements ControllersInterface {
      * Controller post construct
      */
     public void initialize() throws IOException, URISyntaxException {
+        mainTextArea = new InlineCssTextArea();
+        mainTextAreaScrollPane = new VirtualizedScrollPane<>(mainTextArea);
+        mainTextAreaScrollPane.getStyleClass().add("text-area-style");
+        AnchorPane.setTopAnchor(mainTextAreaScrollPane, 0.0);
+        AnchorPane.setBottomAnchor(mainTextAreaScrollPane, 0.0);
+        AnchorPane.setLeftAnchor(mainTextAreaScrollPane, 0.0);
+        AnchorPane.setRightAnchor(mainTextAreaScrollPane, 0.0);
+        mainTextAreaContainer.getChildren().add(mainTextAreaScrollPane);
+
         if (nonNull(J_STICKY_DATA) && nonNull(J_STICKY_DATA.getContent())) {
             mainTextArea.appendText(J_STICKY_DATA.getContent());
         }
@@ -76,6 +88,7 @@ public class AppController implements ControllersInterface {
 
         mainTextAreaStyleReload();
         mainPane.setStyle(format("-fx-background-color: %s ;", settings.getAppThemeColorText()));
+        mainTextAreaScrollPane.setStyle(format("-fx-background-color: %s ;", settings.getAppThemeColorText()));
         stage.setOpacity(windowSettings.getOpacity());
     }
 

@@ -6,6 +6,7 @@ module io.github.uniclog.jsticky {
     requires java.desktop;
     requires com.google.gson;
     requires lombok;
+    requires org.fxmisc.flowless;
 
     exports io.github.uniclog.jsticky.model;
     exports io.github.uniclog.jsticky;
