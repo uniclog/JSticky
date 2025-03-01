@@ -67,6 +67,7 @@ public class SettingsController implements ControllersInterface {
             } else {
                 App.uploadDictionaries();
             }
+            App.settingsReload();
         });
 
         textSize.focusedProperty().addListener((obs, oldValue, newValue) -> {
