@@ -45,6 +45,64 @@ public class App extends Application {
         launch();
     }
 
+    @Override
+    public void start(Stage stage) throws IOException {
+        appStage = new Stage();
+        initialize();
+        loadAppScene();
+    }
+
+    private void initialize() {
+        J_STICKY_DATA = FileServiceWrapper.loadObjectFromJson(J_STICKY_DATA_PATH, JStickyData.class);
+        if (isNull(J_STICKY_DATA)) {
+            J_STICKY_DATA = new JStickyData();
+        }
+        if (J_STICKY_DATA.getSettings().getSpellCheck()) {
+            loadDictionaries();
+        }
+        TimerTask dataSaveTimerTask = new TimerTask() {
+            @Override
+            public void run() {
+                if (App.APP_STOP) return;
+                var actual = J_STICKY_DATA.getContent();
+                var windowSettings = J_STICKY_DATA.getWindowSettings();
+                if (nonNull(actual) && !actual.equals(J_STICKY_DATA.getContentMirror())
+                        || windowSettings.isModify(appStage.getWidth(), appStage.getHeight(), appStage.getX(), appStage.getY())) {
+                    windowSettings.modifySettings(appStage.getWidth(), appStage.getHeight(), appStage.getX(), appStage.getY());
+                    saveObjectAsJson(J_STICKY_DATA_PATH, J_STICKY_DATA);
+                    J_STICKY_DATA.setContentMirror(actual);
+                }
+            }
+        };
+        dataSaveTimer.scheduleAtFixedRate(dataSaveTimerTask, 10000, 10000);
+    }
+
+    public static void loadAppScene() throws IOException {
+        var loader = new FXMLLoader(App.class.getResource("view.fxml"));
+        var root = (Parent) loader.load();
+        var scene = new Scene(root);
+
+        appController = loader.getController();
+        appController.setStageAndSetupListeners(root, scene, appStage);
+
+        appStage.initStyle(UNDECORATED);
+        appStage.setTitle("jSticky");
+        appStage.toFront();
+        appStage.setScene(scene);
+
+        var windowSettings = J_STICKY_DATA.getWindowSettings();
+        var width = windowSettings.getWidth();
+        if (width != null) appStage.setWidth(width);
+        var height = windowSettings.getHeight();
+        if (height != null) appStage.setHeight(height);
+        var posX = windowSettings.getPosX();
+        if (posX != null) appStage.setX(posX);
+        var posY = windowSettings.getPosY();
+        if (posY != null) appStage.setY(posY);
+
+        appStage.show();
+    }
+
     public static void loadSettingsScene() throws IOException {
         if (isNull(settingsStage)) {
             var loader = new FXMLLoader(App.class.getResource("settings.fxml"));
@@ -87,16 +145,6 @@ public class App extends Application {
         }
     }
 
-    public static void close() {
-        App.APP_STOP = true;
-
-        var windowSettings = J_STICKY_DATA.getWindowSettings();
-        windowSettings.modifySettings(appStage.getWidth(), appStage.getHeight(), appStage.getX(), appStage.getY());
-        saveObjectAsJson(J_STICKY_DATA_PATH, J_STICKY_DATA);
-
-        SceneControlService.onExit();
-    }
-
     public static void closeScreenCapStage() {
         screenCapStage = null;
         screenCapController = null;
@@ -109,64 +157,6 @@ public class App extends Application {
             settingsController.settingsReload();
         if (nonNull(screenCapController))
             screenCapController.settingsReload();
-    }
-
-    @Override
-    public void start(Stage stage) throws IOException {
-        appStage = new Stage();
-        initialize();
-        loadAppScene();
-    }
-
-    private void initialize() {
-        J_STICKY_DATA = FileServiceWrapper.loadObjectFromJson(J_STICKY_DATA_PATH, JStickyData.class);
-        if (isNull(J_STICKY_DATA)) {
-            J_STICKY_DATA = new JStickyData();
-        }
-        if (J_STICKY_DATA.getSettings().getSpellCheck()) {
-            loadDictionaries();
-        }
-        TimerTask dataSaveTimerTask = new TimerTask() {
-            @Override
-            public void run() {
-                if (App.APP_STOP) return;
-                var actual = J_STICKY_DATA.getContent();
-                var windowSettings = J_STICKY_DATA.getWindowSettings();
-                if (nonNull(actual) && !actual.equals(J_STICKY_DATA.getContentMirror())
-                        || windowSettings.isModify(appStage.getWidth(), appStage.getHeight(), appStage.getX(), appStage.getY())) {
-                    windowSettings.modifySettings(appStage.getWidth(), appStage.getHeight(), appStage.getX(), appStage.getY());
-                    saveObjectAsJson(J_STICKY_DATA_PATH, J_STICKY_DATA);
-                    J_STICKY_DATA.setContentMirror(actual);
-                }
-            }
-        };
-        dataSaveTimer.scheduleAtFixedRate(dataSaveTimerTask, 10000, 10000);
-    }
-
-    private void loadAppScene() throws IOException {
-        var loader = new FXMLLoader(getClass().getResource("view.fxml"));
-        var root = (Parent) loader.load();
-        var scene = new Scene(root);
-
-        appController = loader.getController();
-        appController.setStageAndSetupListeners(root, scene, appStage);
-
-        appStage.initStyle(UNDECORATED);
-        appStage.setTitle("jSticky");
-        appStage.toFront();
-        appStage.setScene(scene);
-
-        var windowSettings = J_STICKY_DATA.getWindowSettings();
-        var width = windowSettings.getWidth();
-        if (width != null) appStage.setWidth(width);
-        var height = windowSettings.getHeight();
-        if (height != null) appStage.setHeight(height);
-        var posX = windowSettings.getPosX();
-        if (posX != null) appStage.setX(posX);
-        var posY = windowSettings.getPosY();
-        if (posY != null) appStage.setY(posY);
-
-        appStage.show();
     }
 
     public static void loadDictionaries() {
@@ -182,5 +172,13 @@ public class App extends Application {
 
     public static void uploadDictionaries() {
         DICTIONARY = null;
+    }
+
+    public static void close() {
+        App.APP_STOP = true;
+        var windowSettings = J_STICKY_DATA.getWindowSettings();
+        windowSettings.modifySettings(appStage.getWidth(), appStage.getHeight(), appStage.getX(), appStage.getY());
+        saveObjectAsJson(J_STICKY_DATA_PATH, J_STICKY_DATA);
+        SceneControlService.onExit();
     }
 }
