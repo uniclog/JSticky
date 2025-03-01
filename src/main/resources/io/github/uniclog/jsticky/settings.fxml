@@ -13,15 +13,15 @@
                 styleClass="settings-root-class" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0"
                 AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="27.0">
 
-        <Spinner fx:id="textSize" editable="true" layoutX="15.0" layoutY="93.0" prefHeight="25.0" prefWidth="234.0"
-                 AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="93.0">
+        <Spinner fx:id="textSize" editable="true" layoutX="18.0" layoutY="82.0" prefHeight="25.0" prefWidth="234.0"
+                 AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="82.0">
             <valueFactory>
                 <SpinnerValueFactory.IntegerSpinnerValueFactory initialValue="12" max="26" min="8"/>
             </valueFactory>
         </Spinner>
-        <ChoiceBox fx:id="choiceTextFamily" layoutX="15.0" layoutY="135.0" prefHeight="25.0" prefWidth="234.0"
+        <ChoiceBox fx:id="choiceTextFamily" layoutX="18.0" layoutY="126.0" prefHeight="25.0" prefWidth="234.0"
                    value="System" AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="14.0"
-                   AnchorPane.topAnchor="135.0">
+                   AnchorPane.topAnchor="126.0">
             <items>
                 <FXCollections fx:factory="observableArrayList">
                     <String fx:value="System"/>
@@ -33,10 +33,10 @@
                 </FXCollections>
             </items>
         </ChoiceBox>
-        <Label fx:id="labelFont" layoutX="15.0" layoutY="75.0" text="Font size" AnchorPane.leftAnchor="18.0"
-               AnchorPane.topAnchor="75.0"/>
-        <Label fx:id="labelFontSize" layoutX="15.0" layoutY="118.0" text="Font family" AnchorPane.leftAnchor="18.0"
-               AnchorPane.topAnchor="118.0"/>
+        <Label fx:id="labelFont" layoutX="18.0" layoutY="67.0" text="Font size" AnchorPane.leftAnchor="18.0"
+               AnchorPane.topAnchor="67.0"/>
+        <Label fx:id="labelFontSize" layoutX="18.0" layoutY="111.0" text="Font family" AnchorPane.leftAnchor="18.0"
+               AnchorPane.topAnchor="111.0"/>
         <AnchorPane layoutX="15.0" layoutY="274.0" prefHeight="106.0" prefWidth="234.0" styleClass="white-anchor-pane"
                     AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="18.0"
                     AnchorPane.topAnchor="274.0">
@@ -63,20 +63,25 @@
             <CheckBox fx:id="mouseHoverOpacity" contentDisplay="RIGHT" layoutX="14.0" layoutY="32.0"
                       mnemonicParsing="false"/>
         </HBox>
-        <HBox layoutX="18.0" layoutY="181.0" prefHeight="17.0" prefWidth="231.0" spacing="5"
-              AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="181.0" xmlns="http://javafx.com/javafx"
-              xmlns:fx="http://javafx.com/fxml">
-            <Label fx:id="labelCheckWrap" layoutX="134.0" layoutY="184.0" text="Text wrap"/>
+        <HBox layoutX="18.0" layoutY="167.0" prefHeight="17.0" prefWidth="231.0" spacing="5"
+              AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="167.0"
+              xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+            <Label fx:id="labelSpellCheck" layoutX="134.0" layoutY="184.0" text="Spell check"/>
+            <CheckBox fx:id="spellCheck" mnemonicParsing="false"/>
+        </HBox>
+        <HBox layoutX="18.0" layoutY="187.0" prefHeight="17.0" prefWidth="231.0" spacing="5"
+              AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="187.0"
+              xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+            <Label fx:id="labelCheckWrap" layoutX="134.0" layoutY="184.0" prefHeight="17.0" prefWidth="59.0"
+                   text="Text wrap"/>
             <CheckBox fx:id="checkWrap" mnemonicParsing="false"/>
         </HBox>
-
         <Label fx:id="labelVersion" layoutX="118.0" layoutY="386.0" text="v.1.4.0" AnchorPane.bottomAnchor="0.0"
                AnchorPane.leftAnchor="117.0" AnchorPane.rightAnchor="117.0">
             <font>
                 <Font size="10.0"/>
             </font>
         </Label>
-
     </AnchorPane>
     <ToggleButton fx:id="exit" mnemonicParsing="false" onAction="#onExit" prefHeight="24.0" prefWidth="24.0"
                   styleClass="gui-exit-button" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0"/>

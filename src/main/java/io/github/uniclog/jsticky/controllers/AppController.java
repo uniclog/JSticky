@@ -13,15 +13,10 @@ import org.fxmisc.richtext.InlineCssTextArea;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.HashSet;
-import java.util.Set;
 
 import static io.github.uniclog.jsticky.App.*;
 import static java.lang.String.format;
 import static java.util.Objects.nonNull;
-import static java.util.Objects.requireNonNull;
 
 public class AppController implements ControllersInterface {
     private static boolean alwaysOnTop = false;
@@ -35,8 +30,6 @@ public class AppController implements ControllersInterface {
     public AnchorPane mainPane;
     private Stage stage;
 
-    private final Set<String> dictionary = new HashSet<>();
-
     @Override
     public void setStageAndSetupListeners(Parent root, Scene scene, Stage stage) {
         this.stage = stage;
@@ -44,15 +37,21 @@ public class AppController implements ControllersInterface {
         exit.setOnMouseMoved(mouseEvent -> controlService.setOnMouseMoved(mouseEvent, exit.getScene()));
         mainTextArea.setOnMouseMoved(mouseEvent -> controlService.setOnMouseMoved(mouseEvent, exit.getScene()));
         mainTextArea.setOnKeyReleased(keyEvent -> {
+            if (DICTIONARY == null) {
+                return;
+            }
             if (keyEvent.getCode() == KeyCode.SPACE || keyEvent.getCode() == KeyCode.ENTER
                     || keyEvent.getCode() == KeyCode.PERIOD || keyEvent.getCode() == KeyCode.DECIMAL) {
                 mainTextAreaStyleReload();
             }
         });
-        mainTextArea.setOnMouseClicked(event -> {
+        mainTextArea.setOnMouseClicked(_ -> {
+            if (DICTIONARY == null) {
+                return;
+            }
             var actual = mainTextArea.getText();
-            if (!actual.equals(jStickyData.getContent())) {
-                jStickyData.setContent(mainTextArea.getText());
+            if (!actual.equals(J_STICKY_DATA.getContent())) {
+                J_STICKY_DATA.setContent(mainTextArea.getText());
             }
             mainTextAreaStyleReload();
         });
@@ -66,27 +65,22 @@ public class AppController implements ControllersInterface {
      * Controller post construct
      */
     public void initialize() throws IOException, URISyntaxException {
-        if (nonNull(jStickyData) && nonNull(jStickyData.getContent())) {
-            mainTextArea.appendText(jStickyData.getContent());
+        if (nonNull(J_STICKY_DATA) && nonNull(J_STICKY_DATA.getContent())) {
+            mainTextArea.appendText(J_STICKY_DATA.getContent());
         }
-        // add dictionaries
-        dictionary.addAll(Files.readAllLines(Path.of(requireNonNull(App.class.getResource("dic/ru_RU.dic")).toURI())));
-        dictionary.addAll(Files.readAllLines(Path.of(requireNonNull(App.class.getResource("dic/en_US.dic")).toURI())));
-        dictionary.addAll(Files.readAllLines(Path.of(requireNonNull(App.class.getResource("dic/ru_spec.dic")).toURI())));
     }
 
     public void settingsReload() {
-        var settings = jStickyData.getSettings();
-        var windowSettings = jStickyData.getWindowSettings();
+        var settings = J_STICKY_DATA.getSettings();
+        var windowSettings = J_STICKY_DATA.getWindowSettings();
 
         mainTextAreaStyleReload();
-
         mainPane.setStyle(format("-fx-background-color: %s ;", settings.getAppThemeColorText()));
         stage.setOpacity(windowSettings.getOpacity());
     }
 
     private void mainTextAreaStyleReload() {
-        var settings = jStickyData.getSettings();
+        var settings = J_STICKY_DATA.getSettings();
         mainTextArea.setWrapText(settings.getTextWrap());
         mainTextArea.setStyle(0, mainTextArea.getLength(), format(
                 " -fx-fill: '%s'; -fx-font-family: '%s'; -fx-font-size: %dpx;",
@@ -94,11 +88,14 @@ public class AppController implements ControllersInterface {
                 settings.getTextFontFamily(),
                 settings.getTextSize()));
         mainTextArea.setStyle(format("-fx-background-color: '%s'; ", settings.getAppThemeColorText2()));
-        highlightErrors(mainTextArea);
+
+        if (settings.getSpellCheck()) {
+            highlightErrors(mainTextArea);
+        }
     }
 
-    public void highlightErrors(InlineCssTextArea textArea) {
-        var settings = jStickyData.getSettings();
+    private void highlightErrors(InlineCssTextArea textArea) {
+        var settings = J_STICKY_DATA.getSettings();
         String text = textArea.getText();
         String[] words = text.split("[^a-zA-Zа-яА-Я]+");
         int lastIndex = 0;
@@ -107,7 +104,7 @@ public class AppController implements ControllersInterface {
             if (!word.isEmpty()) {
                 int startIndex = text.indexOf(word, lastIndex);
                 lastIndex = startIndex + word.length();
-                if (!dictionary.contains(word.toLowerCase())) {
+                if (DICTIONARY != null && !DICTIONARY.contains(word.toLowerCase())) {
                     int endIndex = startIndex + word.length();
                     textArea.setStyle(startIndex, endIndex, format(
                             "-fx-underline: true; -fx-fill: '%s'; -fx-font-family: '%s'; -fx-font-size: %dpx;",
@@ -124,8 +121,8 @@ public class AppController implements ControllersInterface {
      */
     public void onExit() {
         var actual = mainTextArea.getText();
-        if (!actual.equals(jStickyData.getContent())) {
-            jStickyData.setContent(actual);
+        if (!actual.equals(J_STICKY_DATA.getContent())) {
+            J_STICKY_DATA.setContent(actual);
         }
         App.close();
     }

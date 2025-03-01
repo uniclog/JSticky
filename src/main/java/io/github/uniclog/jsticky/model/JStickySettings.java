@@ -7,6 +7,7 @@ import static java.lang.Math.min;
 
 @Data
 public class JStickySettings {
+    private Boolean spellCheck = false;
     private Boolean textWrap = false;
     private Integer textSize = 12;
     private String textFontFamily = "System";
