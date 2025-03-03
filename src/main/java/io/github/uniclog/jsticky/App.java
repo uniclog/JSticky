@@ -15,16 +15,17 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.stream.Stream;
 
 import static io.github.uniclog.jsticky.utils.FileServiceWrapper.saveObjectAsJson;
-import static java.util.Objects.*;
+import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 import static javafx.stage.StageStyle.UNDECORATED;
 
 public class App extends Application {
@@ -160,12 +161,14 @@ public class App extends Application {
     }
 
     public static void loadDictionaries() {
-        try {
-            DICTIONARY = new HashSet<>();
-            DICTIONARY.addAll(Files.readAllLines(Path.of(requireNonNull(App.class.getResource("dic/ru_RU.dic")).toURI())));
-            DICTIONARY.addAll(Files.readAllLines(Path.of(requireNonNull(App.class.getResource("dic/ru_spec.dic")).toURI())));
-            DICTIONARY.addAll(Files.readAllLines(Path.of(requireNonNull(App.class.getResource("dic/en_US.dic")).toURI())));
-        } catch (IOException | URISyntaxException e) {
+        DICTIONARY = new HashSet<>();
+        try (Stream<Path> files = Files.list(Path.of("data/dictionaries"))) {
+            for (Path path : files.toList()) {
+                if (path.toString().endsWith(".dic")) {
+                    DICTIONARY.addAll(Files.readAllLines(path));
+                }
+            }
+        } catch (IOException e) {
             System.err.println("Error while loading dictionary files: " + e.getMessage());
         }
     }
