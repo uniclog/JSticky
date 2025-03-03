@@ -126,8 +126,6 @@ public class SettingsController implements ControllersInterface {
 
         var opacity = windowSettings.getOpacity();
         sliderOpacity.setValue(opacity);
-
-        // stage.setOpacity(opacity);
     }
 
     @Override
@@ -140,5 +138,7 @@ public class SettingsController implements ControllersInterface {
 
     public void onExit() {
         stage.close();
+        stage = null;
+        App.closeSettingsStage();
     }
 }

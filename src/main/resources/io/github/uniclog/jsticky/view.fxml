@@ -20,9 +20,6 @@
     <ToggleButton fx:id="settings" layoutX="33.0" layoutY="2.0" mnemonicParsing="false" onAction="#onSettings"
                   prefHeight="24.0" prefWidth="32.0" styleClass="gui-settings-button" AnchorPane.leftAnchor="1.0"
                   AnchorPane.topAnchor="1.0"/>
-    <ToggleButton layoutX="65.0" layoutY="2.0" mnemonicParsing="false" onAction="#openList" prefHeight="24.0"
-                  prefWidth="32.0" styleClass="gui-plus-button" visible="false" AnchorPane.leftAnchor="65.0"
-                  AnchorPane.topAnchor="2.0"/>
     <ToggleButton layoutX="14.0" layoutY="2.0" mnemonicParsing="false" onAction="#onScreenCapture" prefHeight="24.0"
                   prefWidth="32.0" styleClass="gui-screen-cap-button" AnchorPane.leftAnchor="34.0"
                   AnchorPane.topAnchor="1.0"/>

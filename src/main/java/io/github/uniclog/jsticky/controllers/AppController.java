@@ -13,7 +13,6 @@ import org.fxmisc.flowless.VirtualizedScrollPane;
 import org.fxmisc.richtext.InlineCssTextArea;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 
 import static io.github.uniclog.jsticky.App.*;
 import static java.lang.String.format;
@@ -48,7 +47,7 @@ public class AppController implements ControllersInterface {
                 mainTextAreaStyleReload();
             }
         });
-        mainTextArea.setOnMouseClicked(_ -> {
+        mainTextArea.setOnMouseClicked(event -> {
             if (DICTIONARY == null) {
                 return;
             }
@@ -67,7 +66,7 @@ public class AppController implements ControllersInterface {
     /**
      * Controller post construct
      */
-    public void initialize() throws IOException, URISyntaxException {
+    public void initialize() {
         mainTextArea = new InlineCssTextArea();
         mainTextAreaScrollPane = new VirtualizedScrollPane<>(mainTextArea);
         mainTextAreaScrollPane.getStyleClass().add("text-area-style");
@@ -87,8 +86,8 @@ public class AppController implements ControllersInterface {
         var windowSettings = J_STICKY_DATA.getWindowSettings();
 
         mainTextAreaStyleReload();
-        mainPane.setStyle(format("-fx-background-color: %s ;", settings.getAppThemeColorText2()));
-        mainTextAreaScrollPane.setStyle(format("-fx-background-color: %s ;", settings.getAppThemeColorText()));
+        mainPane.setStyle(format("-fx-background-color: %s ;", settings.getAppThemeColorText()));
+        mainTextAreaScrollPane.setStyle(format("-fx-background-color: %s ;", settings.getAppThemeColorText2()));
         stage.setOpacity(windowSettings.getOpacity());
     }
 
@@ -110,10 +109,10 @@ public class AppController implements ControllersInterface {
     private void highlightErrors(InlineCssTextArea textArea) {
         var settings = J_STICKY_DATA.getSettings();
         String text = textArea.getText();
-        String[] words = text.split("[^a-zA-Zа-яА-Я]+");
+        String[] words = text.split("[^a-zA-Zа-яА-ЯёЁ]+");
         int lastIndex = 0;
         for (String word : words) {
-            word = word.replaceAll("[^a-zA-Zа-яА-Я]", "");
+            word = word.replaceAll("[^a-zA-Zа-яА-ЯёЁ]", "");
             if (!word.isEmpty()) {
                 int startIndex = text.indexOf(word, lastIndex);
                 lastIndex = startIndex + word.length();
@@ -189,16 +188,6 @@ public class AppController implements ControllersInterface {
                 throw new RuntimeException(e);
             }
         });
-    }
-
-    public void openList() {
-        /*Platform.runLater(() -> {
-            try {
-                loadListScene();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });*/
     }
 
     public void onScreenCapture() {
