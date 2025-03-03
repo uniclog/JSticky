@@ -147,8 +147,16 @@ public class App extends Application {
     }
 
     public static void closeScreenCapStage() {
+        screenCapStage.close();
         screenCapStage = null;
         screenCapController = null;
+        System.gc();
+    }
+
+    public static void closeSettingsStage() {
+        settingsStage.close();
+        settingsStage = null;
+        System.gc();
     }
 
     public static void settingsReload() {
@@ -175,6 +183,7 @@ public class App extends Application {
 
     public static void uploadDictionaries() {
         DICTIONARY = null;
+        System.gc();
     }
 
     public static void close() {
