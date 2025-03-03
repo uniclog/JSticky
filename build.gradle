@@ -1,6 +1,5 @@
 plugins {
     id 'java'
-    id 'application'
     id 'org.javamodularity.moduleplugin' version '1.8.15'
     id 'org.openjfx.javafxplugin' version '0.1.0'
     id 'org.beryx.jlink' version '3.1.1'
@@ -13,13 +12,6 @@ repositories {
     mavenCentral()
 }
 
-ext {
-    junitVersion = '5.9.2'
-    richtextfxVersion = '0.11.4'
-    gsonVersion = '2.12.1'
-    lombokVersion = '1.18.36'
-}
-
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
 }
@@ -30,7 +22,7 @@ application {
 }
 
 javafx {
-    version = '23.0.2'
+    version = '23'
     modules = ['javafx.controls', 'javafx.fxml']
 }
 
@@ -45,12 +37,12 @@ dependencies {
         exclude(group: 'org.openjfx')
     }
 
-    implementation("com.google.code.gson:gson:${gsonVersion}")
-    annotationProcessor("org.projectlombok:lombok:${lombokVersion}")
-    implementation("org.projectlombok:lombok:${lombokVersion}")
+    implementation('com.google.code.gson:gson:2.12.1')
+    annotationProcessor('org.projectlombok:lombok:1.18.36')
+    implementation('org.projectlombok:lombok:1.18.36')
 
-    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+    testImplementation('org.junit.jupiter:junit-jupiter-api:5.9.2')
+    testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine:5.9.2')
 }
 
 test {
@@ -58,12 +50,11 @@ test {
 }
 
 jlink {
-    imageZip = layout.buildDirectory.file("distributions/jSticky-${javafx.platform.classifier}.zip").get()
-    options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
+    imageZip = layout.buildDirectory.file("distributions/${rootProject.name}-${javafx.platform.classifier}-${version}.zip").get()
+    options = ['--strip-debug', '--compress', '0', '--no-header-files', '--no-man-pages']
     launcher {
-        name = 'jSticky'
+        name = "${rootProject.name}-${version}"
     }
-    addExtraDependencies('javafx')
     jpackage {
         appVersion = "${version}"
         vendor = 'io.github.uniclog'
