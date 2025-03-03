@@ -99,7 +99,7 @@ public class AppController implements ControllersInterface {
                 settings.getTextFontColorText(),
                 settings.getTextFontFamily(),
                 settings.getTextSize()));
-        mainTextArea.setStyle(format("-fx-background-color: '%s'; ", settings.getAppThemeColorText2()));
+        mainTextArea.setStyle(format("-fx-background-color: %s; ", settings.getAppThemeColorText2()));
 
         if (settings.getSpellCheck()) {
             highlightErrors(mainTextArea);

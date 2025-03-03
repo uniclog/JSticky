@@ -24,7 +24,7 @@ public class JStickySettings {
         double red = theme.getRed(),
                 green = theme.getGreen(),
                 blue = theme.getBlue();
-        return new Color(red, green, blue, 0.8)
+        return new Color(red, green, blue, 0.7)
                 .toString()
                 .replaceAll("0x", "#");
     }
