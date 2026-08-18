@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Name=JStickyGo
+Comment=JStickyGo Application
+# The Exec line includes %u to pass the URL to the application
+Exec=/usr/local/bin/JStickyGo %u
+Terminal=false
+Type=Application
+Icon=JStickyGo
+Categories=Utility;
+StartupWMClass=JStickyGo
+
+ 

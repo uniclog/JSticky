@@ -1,0 +1,15 @@
+{
+	"fixed": {
+		"file_version": "2.0.2"
+	},
+	"info": {
+		"0000": {
+			"ProductVersion": "2.0.2",
+			"CompanyName": "Uniclog Software",
+			"FileDescription": "JStickyGo Application",
+			"LegalCopyright": "2026 Uniclog Software",
+			"ProductName": "JStickyGo",
+			"Comments": "JSticky on Wails 3"
+		}
+	}
+}
